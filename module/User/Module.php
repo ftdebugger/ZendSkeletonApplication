@@ -3,13 +3,8 @@
 namespace User;
 
 use User\Controller\Plugin\Authentication;
-use User\Form\Edit;
-use User\Form\Request;
-use User\Form\TeacherForm;
-use User\Form\GradeForm;
 use BjyAuthorize\Service\Authorize;
 use User\Provider\Identity;
-use User\Service\TeacherService;
 use User\Service\UserService;
 use Zend\EventManager\EventInterface;
 use Zend\ModuleManager\Feature\BootstrapListenerInterface;
@@ -19,9 +14,7 @@ use Zend\Mvc\ApplicationInterface;
 use Zend\Mvc\Controller\PluginManager;
 use Zend\Mvc\MvcEvent;
 use Zend\ServiceManager\ServiceManager;
-use Zend\Stdlib\Hydrator\ClassMethods;
 use Zend\View\Helper\Navigation\AbstractHelper;
-use ZfcUser\Form\LoginFilter;
 
 /**
  * @author Evgeny Shpilevsky <evgeny@shpilevsky.com>

@@ -85,7 +85,7 @@ class User implements UserInterface, ProviderInterface
      */
     public function setId($id)
     {
-        $this->id = (int)$id;
+        $this->id = (int) $id;
     }
 
     /**
@@ -225,6 +225,5 @@ class User implements UserInterface, ProviderInterface
     {
         return [$this->getRole()];
     }
-
 
 }

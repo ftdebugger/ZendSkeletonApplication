@@ -10,8 +10,6 @@ use User\Entity\User;
 use User\Exception\RuntimeException;
 use User\Repository\UserRepository;
 use Zend\Authentication\AuthenticationService;
-use Zend\Crypt\Password\Bcrypt;
-use Zend\Math\Rand;
 use Zend\Paginator\Paginator;
 use Zend\ServiceManager\ServiceManager;
 use ZfcUser\Service\User as ZfcUserService;
@@ -50,7 +48,7 @@ class UserService
     }
 
     /**
-     * @param  int $id
+     * @param  int              $id
      * @return User
      * @throws RuntimeException
      */
@@ -65,9 +63,9 @@ class UserService
     }
 
     /**
-     * @param  string $mail
+     * @param  string           $mail
      * @throws RuntimeException
-     * @param  string $mail
+     * @param  string           $mail
      *
      * @return User
      */
@@ -82,7 +80,7 @@ class UserService
     }
 
     /**
-     * @param  array $criteria
+     * @param  array     $criteria
      * @return Paginator
      */
     public function getUsers(array $criteria = [])
@@ -132,7 +130,6 @@ class UserService
 
         return 'guest';
     }
-
 
     /**
      * Return value of AuthService
