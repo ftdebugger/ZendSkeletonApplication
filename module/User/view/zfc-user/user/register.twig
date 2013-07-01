@@ -1,0 +1,14 @@
+{% extends 'layout/layout.twig' %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>Register</h1>
+    </div>
+
+    {% if registerForm %}
+        {{ form(registerForm) }}
+    {% else %}
+        <h1>Disabled</h1>
+    {% endif %}
+
+{% endblock content %}

@@ -1,0 +1,6 @@
+{
+    "dependencies": {
+        "csso": "*",
+        "uglify-js": "*"
+    }
+}

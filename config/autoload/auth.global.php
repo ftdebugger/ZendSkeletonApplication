@@ -3,7 +3,7 @@
 return array(
     'bjyauthorize' => array(
         'default_role' => 'guest',
-        'identity_provider' => 'BjyAuthorize\Provider\Identity\ZfcUserZendDb',
+        'identity_provider' => 'User\Provider\Identity',
         /* role providers simply provide a list of roles that should be inserted
          * into the Zend\Acl instance. the module comes with two providers, one
          * to specify roles in a config file and one to load roles using a

@@ -1,0 +1,24 @@
+{% extends 'layout/layout.twig' %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>{{ zfcUserDisplayName() }}</h1>
+    </div>
+
+    {% if enableRegistration %}
+        Not registered? <a href="{{ url('zfcuser/register') }}?redirect={{ redirect }}">Sign up!</a>
+    {% endif %}
+
+    <div class="row">
+        <div class="span2">
+            {{ gravatar(zfcUserIdentity().getEmail()) }}
+        </div>
+        <div class="span10">
+            <ul>
+                <li><a href="{{ url('zfcuser/changepassword') }}">Сменить пароль</a></li>
+                <li><a href="{{ url('zfcuser/changeemail') }}">Сменить e-mail</a></li>
+            </ul>
+        </div>
+    </div>
+
+{% endblock content %}

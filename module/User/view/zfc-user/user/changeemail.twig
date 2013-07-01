@@ -1,0 +1,20 @@
+{% extends 'layout/layout.twig' %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>Change Password for {{ zfcUserDisplayName() }}</h1>
+    </div>
+
+    {% if not status is null %}
+        {% if status == true %}
+            {{ alert('Email address changed successfully.', 'alert-success') }}
+        {% else %}
+            {{ alert('Unable to update your email address. Please try again.', 'alert-error') }}
+        {% endif %}
+    {% endif %}
+
+    {% do changeEmailForm.add({type: 'button', name: 'submit', options: {label: 'Submit'}, attributes: {'type': 'submit'}}) %}
+
+    {{ form(changeEmailForm) }}
+
+{% endblock content %}

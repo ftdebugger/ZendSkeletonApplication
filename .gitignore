@@ -7,6 +7,7 @@ nbproject
 .project
 .settings
 composer.lock
-vendor/bin
 /vendor
 /bin
+/node_modules
+module/*/autoload_classmap.php
