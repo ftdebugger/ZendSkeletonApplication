@@ -1,0 +1,37 @@
+<ul class="nav">
+    {% for page in container %}
+
+        {# Check permissions #}
+        {% if page.isVisible() and navigation().accept(page) %}
+
+            {% set hasChilds = page.hasPages() %}
+            {% for child in page %}
+                {% set hasChilds = hasChilds and (child.isVisible() and navigation().accept(child)) %}
+            {% endfor %}
+
+            {# if has children #}
+            {% if hasChilds %}
+                <li class="dropdown">
+                    <a class="dropdown-toggle nav-header" data-toggle="dropdown" href="#">
+                        <span>{{ page.getLabel() }}</span>
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        {% for child in page %}
+                            {% if child.isVisible() and navigation().accept(child) %}
+                                <li>
+                                    <a href="{{ child.getHref() }}">{{ child.getLabel() }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% else %}
+                <li{% if page.isActive(true) %} class=" active"{% endif %}>
+                    <a class="nav-header" href="{{ page.getHref() }}">{{ page.getLabel() }}</a>
+                </li>
+            {% endif %}
+        {% endif %}
+
+    {% endfor %}
+</ul>

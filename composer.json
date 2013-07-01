@@ -1,0 +1,31 @@
+{
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "http://git.dev.infonet.by/ftdebugger/scaffolder.git"
+        }
+    ],
+
+    "name": "ftdebugger/skeleton-application",
+    "description": "Skeleton Application for ZF2",
+    "require": {
+        "php":                              ">=5.4",
+        "zendframework/zendframework":      "2.2.*",
+        "doctrine/doctrine-orm-module":     "0.7",
+        "doctrine/doctrine-module":         "0.*",
+        "doctrine/cache":                   "v1.0",
+        "zf-commons/zfc-twig":              ">=1.1.5",
+        "zf-commons/zfc-user":              "0.1.*",
+        "widmogrod/zf2-assetic-module":     "dev-master",
+        "neilime/zf2-twb-bundle":           "dev-master",
+        "bjyoungblood/bjy-authorize":       "1.3.*"
+    },
+    "require-dev": {
+        "zendframework/zftool":             "dev-master",
+        "phpunit/phpunit":                  "3.7.*",
+        "ftdebugger/scaffolder":            "dev-master"
+    },
+    "config": {
+        "bin-dir": "bin/"
+    }
+}
