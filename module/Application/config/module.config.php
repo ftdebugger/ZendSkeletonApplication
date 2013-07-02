@@ -1,9 +1,6 @@
 <?php
 
 return array(
-    'assetic_configuration' => include __DIR__ . "/assetic.config.php",
-    'bjyauthorize' => include __DIR__ . "/auth.config.php",
-
     'router' => array(
         'routes' => array(
             'home' => array(

@@ -18,6 +18,7 @@
     <target name="classmap" description="Generate classmap">
         <exec command="./vendor/bin/classmap_generator.php --overwrite --library module/Application"/>
         <exec command="./vendor/bin/classmap_generator.php --overwrite --library module/User"/>
+        <exec command="./vendor/bin/classmap_generator.php --overwrite --library module/Admin"/>
     </target>
 
     <target name="phpunit">
