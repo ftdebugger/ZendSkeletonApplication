@@ -2,14 +2,16 @@
 
 namespace Admin;
 
+use Admin\Service\EntityService;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
+use Zend\ModuleManager\Feature\ServiceProviderInterface;
 use Zend\ServiceManager\ServiceManager;
 
 /**
  * @author Evgeny Shpilevsky <evgeny@shpilevsky.com>
  */
 
-class Module implements ConfigProviderInterface
+class Module implements ConfigProviderInterface, ServiceProviderInterface
 {
 
     /**
@@ -39,6 +41,27 @@ class Module implements ConfigProviderInterface
             'Zend\Loader\ClassMapAutoloader' => array(
                 __DIR__ . "/autoload_classmap.php"
             ),
+        );
+    }
+
+    /**
+     * Expected to return \Zend\ServiceManager\Config object or array to
+     * seed such an object.
+     *
+     * @return array|\Zend\ServiceManager\Config
+     */
+    public function getServiceConfig()
+    {
+        return array(
+            'factories' => array(
+                'admin-config' => function (ServiceManager $sm) {
+                    $config = $sm->get('Config');
+                    return new Configuration($config['admin']);
+                },
+                'Admin/Service/EntityService' => function (ServiceManager $sm) {
+                    return new EntityService($sm);
+                }
+            )
         );
     }
 

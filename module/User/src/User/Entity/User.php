@@ -6,12 +6,14 @@ use BjyAuthorize\Provider\Role\ProviderInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use ZfcUser\Entity\UserInterface;
+use Zend\Form\Annotation as Form;
 
 /**
  * An example of how to implement a role aware user entity.
  *
  * @ORM\Entity(repositoryClass="User\Repository\UserRepository")
  * @ORM\Table(name="users")
+ * @Form\Hydrator("Zend\Stdlib\Hydrator\ClassMethods")
  */
 class User implements UserInterface, ProviderInterface
 {
@@ -20,41 +22,49 @@ class User implements UserInterface, ProviderInterface
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Form\Exclude
      */
     protected $id;
 
     /**
      * @var string
      * @ORM\Column(type="string", length=255, unique=true, nullable=true)
+     * @Form\Options({"label": "Username"})
      */
     protected $username;
 
     /**
      * @var string
      * @ORM\Column(type="string", unique=true,  length=255)
+     * @Form\Options({"label": "E-mail"})
      */
     protected $email;
 
     /**
      * @var string
      * @ORM\Column(type="string", length=50, nullable=true)
+     * @Form\Options({"label": "Display name"})
      */
     protected $displayName;
 
     /**
      * @var string
      * @ORM\Column(type="string", length=128)
+     * @Form\Exclude
      */
     protected $password;
 
     /**
      * @var int
+     * @Form\Exclude
      */
     protected $state;
 
     /**
      * @var string
      * @ORM\Column(type="string", length=128)
+     * @Form\Type("select")
+     * @Form\Options({"label": "Role", "options": {"user": "user", "manager": "manager", "admin": "admin"}})
      */
     protected $role = 'user';
 

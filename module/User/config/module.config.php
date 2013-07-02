@@ -35,4 +35,13 @@ return array(
             'zfcuser' => __DIR__ . '/../view',
         ),
     ),
+
+    'admin' => array(
+        'entities' => array(
+            'user' => array(
+                'entity' => 'User\Entity\User',
+                'fields' => array('id', 'username', 'email')
+            )
+        )
+    )
 );

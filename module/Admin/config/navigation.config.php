@@ -10,17 +10,14 @@ return array(
             )
         ),
         'admin' => array(
-            array(
+            'main' => array(
                 'label' => 'Main page',
                 'route' => 'admin',
                 'resource' => 'admin'
-            )
+            ),
         )
     ),
-
     'admin' => array(
-        'entities' => array(
-            
-        )
+        'entities' => array()
     )
 );
