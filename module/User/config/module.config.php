@@ -6,8 +6,8 @@ return array(
     'zfcuser' => array(
         'enable_default_entities' => false,
         'user_entity_class' => 'User\Entity\User',
-        'enable_display_name' => true,
-        'enable_registration' => false,
+        'enable_display_name' => false,
+        'enable_registration' => true,
         'enable_username' => true,
         'auth_identity_fields' => ['email', 'username']
     ),
@@ -22,7 +22,7 @@ return array(
             ),
             'orm_default' => array(
                 'drivers' => array(
-                    __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver'
+                    __NAMESPACE__ . '\Entity' => 'zfcuser_entity'
                 )
             )
         )

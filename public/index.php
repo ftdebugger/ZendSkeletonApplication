@@ -15,3 +15,16 @@ require 'init_autoloader.php';
 
 // Run the application!
 Zend\Mvc\Application::init(require 'config/application.config.php')->run();
+
+exit;
+
+chdir(dirname(__DIR__));
+
+// Setup auto load
+/** @var \Composer\Autoload\ClassLoader $loader */
+$loader = require __DIR__ . "/../vendor/autoload.php";
+$loader->add('Zend', '');
+
+
+// Run the application!
+Zend\Mvc\Application::init(require __DIR__ . '/../config/application.config.php')->run();

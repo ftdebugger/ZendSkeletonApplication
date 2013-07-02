@@ -56,7 +56,7 @@ class User implements UserInterface, ProviderInterface
      * @var string
      * @ORM\Column(type="string", length=128)
      */
-    protected $role;
+    protected $role = 'user';
 
     /**
      * Initialises the roles variable.

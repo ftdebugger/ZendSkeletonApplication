@@ -82,6 +82,9 @@ return array(
             //allow assets when authorisation fails when using the BjyAuthorize module
             \BjyAuthorize\Guard\Route::ERROR,
         ),
+
+        'webPath' => 'public/assets',
+        'baseUrl' => '/assets'
     ),
 
     // Whether or not to enable a configuration cache.

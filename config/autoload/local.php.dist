@@ -15,7 +15,6 @@ return array(
     'config_cache_enabled' => false,
     'module_map_cache_enabled' => false,
     'check_dependencies' => true,
-
     'doctrine' => array(
         'connection' => array(
             'orm_default' => array(
@@ -25,23 +24,29 @@ return array(
                     'port' => '3306',
                     'user' => 'root',
                     'password' => '',
-                    'dbname' => 'logic',
+                    'dbname' => '',
                 ),
             )
         ),
     ),
-
     'assetic_configuration' => array(
         'debug' => true,
         'buildOnRequest' => true,
     ),
-
     'zfctwig' => array(
         'environment_options' => array(
             'debug' => true,
         ),
         'extensions' => array(
             'debug' => 'Twig_Extension_Debug'
+        )
+    ),
+    'zenddevelopertools' => array(
+        'profiler' => array(
+            'enabled' => true
+        ),
+        'toolbar' => array(
+            'enabled' => true
         )
     )
 );
