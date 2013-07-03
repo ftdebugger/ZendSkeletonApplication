@@ -13,7 +13,6 @@ use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
 use Zend\Form\Annotation\AnnotationBuilder;
 use Zend\Form\Element\Button;
-use Zend\Form\Element\Submit;
 use Zend\Form\Form;
 use Zend\Paginator\Paginator;
 use Zend\ServiceManager\ServiceManager;
@@ -98,6 +97,16 @@ class DefaultEntityService implements EntityServiceInterface
     public function save($model)
     {
         $this->getEntityManager()->persist($model);
+    }
+
+    /**
+     * Remove entity
+     *
+     * @param mixed $model
+     */
+    public function remove($model)
+    {
+        $this->getEntityManager()->remove($model);
     }
 
     /**

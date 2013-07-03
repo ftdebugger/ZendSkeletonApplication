@@ -9,8 +9,10 @@ namespace Admin\Controller;
 use Admin\Entities\Entity;
 use Admin\Service\EntityService;
 use Doctrine\ORM\EntityManager;
+use Zend\Http\Response;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Stdlib\Hydrator\ClassMethods;
+use Zend\View\Model\ViewModel;
 
 class EntityController extends AbstractActionController
 {
@@ -27,6 +29,10 @@ class EntityController extends AbstractActionController
     {
         $entityName = $this->params()->fromRoute('entity');
         $entity = $this->getEntityService()->getEntity($entityName);
+
+        if (!$entity->getOptions()->isAllowList()) {
+            return $this->notFoundAction();
+        }
 
         $list = $entity->getService()->getList();
         $list->setCurrentPageNumber($this->params()->fromQuery('page'));
@@ -59,6 +65,10 @@ class EntityController extends AbstractActionController
         $entityName = $this->params()->fromRoute('entity');
         $entity = $this->getEntityService()->getEntity($entityName);
 
+        if (!$entity->getOptions()->isAllowCreate()) {
+            return $this->notFoundAction();
+        }
+
         $form = $this->editModel($entity, $entity->getService()->factory());
 
         return array(
@@ -71,6 +81,11 @@ class EntityController extends AbstractActionController
     {
         $entityName = $this->params()->fromRoute('entity');
         $entity = $this->getEntityService()->getEntity($entityName);
+
+        if (!$entity->getOptions()->isAllowEdit()) {
+            return $this->notFoundAction();
+        }
+
         $model = $entity->getService()->loadById($this->params()->fromRoute('id'));
 
         $form = $this->editModel($entity, $model);
@@ -79,6 +94,24 @@ class EntityController extends AbstractActionController
             'entity' => $entity,
             'form' => $form
         );
+    }
+
+    public function removeAction()
+    {
+        $entityName = $this->params()->fromRoute('entity');
+        $entity = $this->getEntityService()->getEntity($entityName);
+
+        if (!$entity->getOptions()->isAllowRemove()) {
+            return $this->notFoundAction();
+        }
+
+        $model = $entity->getService()->loadById($this->params()->fromPost('id'));
+        $entity->getService()->remove($model);
+        $this->getEntityManager()->flush();
+
+        $this->redirect()->toRoute('admin/entity', ['entity' => $entity->getName()]);
+
+        return [];
     }
 
     /**

@@ -41,20 +41,22 @@ class AdminNavigationFactory extends AbstractNavigationFactory
 
         $config = array();
         foreach ($entities->getEntities() as $entity) {
-            $config[] = array(
-                'label' => $entity->getName(),
-                'route' => 'admin/entity',
-                'params' => array(
-                    'entity' => $entity->getName()
-                ),
-                'resource' => 'admin'
-            );
+            if ($entity->getOptions()->isAllowList()) {
+                $config[] = array(
+                    'label' => $entity->getName(),
+                    'route' => 'admin/entity',
+                    'params' => array(
+                        'entity' => $entity->getName()
+                    ),
+                    'resource' => 'admin'
+                );
+            }
         }
 
         $config = array(
             'entities' => array(
                 'label' => 'Entities',
-                'route' => 'admin',
+                'uri' => '#',
                 'resource' => 'admin',
                 'pages' => $config
             )

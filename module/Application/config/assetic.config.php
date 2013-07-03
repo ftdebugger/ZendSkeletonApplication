@@ -50,8 +50,8 @@ return array(
                     ),
                     'base_images' => array(
                         'assets' => array(
-                            'images/*.png',
-                            'images/*.ico',
+                            'img/*.png',
+                            'img/*.ico',
                         ),
                         'options' => array(
                             'move_raw' => true,

@@ -40,4 +40,11 @@ interface EntityServiceInterface
      */
     public function save($model);
 
+    /**
+     * Remove entity
+     *
+     * @param mixed $model
+     */
+    public function remove($model);
+
 }

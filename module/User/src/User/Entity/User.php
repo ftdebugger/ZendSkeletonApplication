@@ -44,6 +44,7 @@ class User implements UserInterface, ProviderInterface
      * @var string
      * @ORM\Column(type="string", length=50, nullable=true)
      * @Form\Options({"label": "Display name"})
+     * @Form\Name("display_name")
      */
     protected $displayName;
 

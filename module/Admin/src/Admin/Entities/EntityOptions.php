@@ -12,6 +12,11 @@ use Zend\Stdlib\AbstractOptions;
 class EntityOptions extends AbstractOptions
 {
 
+    const ALLOW_LIST = 'list';
+    const ALLOW_CREATE = 'create';
+    const ALLOW_EDIT = 'edit';
+    const ALLOW_REMOVE = 'remove';
+
     /**
      * @var string
      */
@@ -26,6 +31,11 @@ class EntityOptions extends AbstractOptions
      * @var array
      */
     protected $fields = ['id', 'title'];
+
+    /**
+     * @var array
+     */
+    protected $allow = ['list', 'create', 'edit', 'remove'];
 
     /**
      * Set value of Entity
@@ -91,5 +101,56 @@ class EntityOptions extends AbstractOptions
         return $this->fields;
     }
 
+    /**
+     * Set value of Allow
+     *
+     * @param array $allow
+     */
+    public function setAllow($allow)
+    {
+        $this->allow = $allow;
+    }
+
+    /**
+     * Return value of Allow
+     *
+     * @return array
+     */
+    public function getAllow()
+    {
+        return $this->allow;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAllowCreate()
+    {
+        return in_array(self::ALLOW_CREATE, $this->getAllow());
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAllowEdit()
+    {
+        return in_array(self::ALLOW_EDIT, $this->getAllow());
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAllowRemove()
+    {
+        return in_array(self::ALLOW_REMOVE, $this->getAllow());
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAllowList()
+    {
+        return in_array(self::ALLOW_LIST, $this->getAllow());
+    }
 
 }
