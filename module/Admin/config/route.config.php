@@ -14,13 +14,23 @@ return array(
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
+                    'entities' => array(
+                        'type' => 'literal',
+                        'options' => array(
+                            'route' => '/entity',
+                            'defaults' => array(
+                                'controller' => 'admin-entity',
+                                'action' => 'index',
+                            )
+                        )
+                    ),
                     'entity' => array(
                         'type' => 'segment',
                         'options' => array(
                             'route' => '/entity/:entity[/page/:page]',
                             'defaults' => array(
                                 'controller' => 'admin-entity',
-                                'action' => 'index',
+                                'action' => 'list',
                                 'page' => 1
                             )
                         ),

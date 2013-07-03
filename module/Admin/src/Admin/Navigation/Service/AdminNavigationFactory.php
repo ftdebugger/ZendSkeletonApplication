@@ -53,17 +53,21 @@ class AdminNavigationFactory extends AbstractNavigationFactory
             }
         }
 
-        $config = array(
-            'entities' => array(
-                'label' => 'Entities',
-                'uri' => '#',
-                'resource' => 'admin',
-                'pages' => $config
-            )
-        );
+        if (count($config)) {
+            $config = array(
+                'entities' => array(
+                    'label' => 'Entities',
+                    'route' => 'admin/entities',
+                    'resource' => 'admin',
+                    'pages' => $config
+                )
+            );
 
-        $pages = $this->getPagesFromConfig($config);
-        return $this->preparePages($serviceLocator, $pages);
+            $pages = $this->getPagesFromConfig($config);
+            return $this->preparePages($serviceLocator, $pages);
+        }
+
+        return array();
     }
 
 }

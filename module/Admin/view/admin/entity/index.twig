@@ -1,57 +1,31 @@
-{% extends "admin/layout/layout" %}
+{% extends "admin/layout/layout.twig" %}
 
 {% block content %}
 
     <div class="page-header">
-        <h1>List of {{ entity.name }}
-            {% if entity.options.isAllowCreate() %}
-                <a href="{{ url('admin/entity/create', {'entity': entity.name}) }}" class="btn btn-info">Добавить</a>
-            {% endif %}
-        </h1>
+        <h1>Entities</h1>
     </div>
 
     <table class="table">
         <tr>
-            {% for name in head %}
-                <th>{{ name }}</th>
-            {% endfor %}
-            <th></th>
+
         </tr>
 
-        {% for row in table %}
+        {% for entity in entities %}
             <tr>
-                {% for field in row %}
-                    <td>{{ field }}</td>
-                {% endfor %}
                 <td>
-                    {% if row.id %}
-                        {% if entity.options.isAllowRemove() %}
-                            <a href="#remove{{ row.id }}" data-toggle="modal" role="button" class="btn btn-danger btn-small">удалить</a>
-                            <div id="remove{{ row.id }}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                    <h3 id="myModalLabel">Подтверждение</h3>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Вы точно хотите удалить эту запись?</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <form method="post" action="{{ url('admin/entity/remove', {'entity': entity.name}) }}">
-                                        <button class="btn btn-primary btn-danger" name="id" value="{{ row.id }}">Удалить</button>
-                                    </form>
-                                </div>
-                            </div>
-                        {% endif %}
-
-                        {% if entity.options.isAllowEdit() %}
-                            <a href="{{ url('admin/entity/edit', {'entity': entity.name, 'id': row.id}) }}" class="btn btn-info btn-small">редактировать</a>
-                        {% endif %}
+                    <a href="{{ url('admin/entity', {entity: entity.name}) }}">
+                        {{ entity.name }}
+                    </a>
+                </td>
+                <td>{{ entity.options.entity }}</td>
+                <td>
+                    {% if entity.options.isAllowCreate() %}
+                        <a href="{{ url('admin/entity/create', {'entity': entity.name}) }}" class="btn btn-info">Добавить</a>
                     {% endif %}
                 </td>
             </tr>
         {% endfor %}
     </table>
-
-    {{ paginationControl(paginator, 'Sliding', 'admin/pagination', {route: 'admin/entity', routeParams: {entity: entity.name}}) }}
 
 {% endblock %}

@@ -82,7 +82,7 @@ div.container a.brand {
             text-shadow: none;
         }
 
-        .sidebar .sidebar-nav li.active A {
+        .sidebar .sidebar-nav li.active>A {
             color: #1abc9c;
             background: none;
             text-shadow: none;

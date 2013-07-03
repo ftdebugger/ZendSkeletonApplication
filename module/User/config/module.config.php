@@ -38,7 +38,7 @@ return array(
 
     'admin' => array(
         'entities' => array(
-            'user' => array(
+            'User' => array(
                 'entity' => 'User\Entity\User',
                 'fields' => array('id', 'username', 'email', 'display_name'),
                 'allow' => array('list', 'edit', 'remove')

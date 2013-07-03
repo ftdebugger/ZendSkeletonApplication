@@ -27,6 +27,16 @@ class EntityController extends AbstractActionController
      */
     public function indexAction()
     {
+        return array(
+            'entities' => $this->getEntityService()->getEntities()->getEntities()
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public function listAction()
+    {
         $entityName = $this->params()->fromRoute('entity');
         $entity = $this->getEntityService()->getEntity($entityName);
 
