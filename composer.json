@@ -1,5 +1,5 @@
 {
-    "name": "ftdebugger/ZendSkeletonApplication",
+    "name": "ftdebugger/zend-skeleton-application",
     "description": "Skeleton Application for ZF2 with doctrine, twig and assetic",
     "license": "BSD-3-Clause",
     "authors": [
