@@ -40,7 +40,7 @@ class EntityService
      */
     public function getEntities()
     {
-        return $this->serviceLocator->get('admin-entities');
+        return $this->getServiceLocator()->get('admin-entities');
     }
 
     /**
