@@ -22,10 +22,10 @@
     </target>
 
     <target name="phpunit">
-        <!--<exec executable="./vendor/bin/phpunit" passthru="true" checkreturn="true">-->
-            <!--<arg value="-c"/>-->
-            <!--<arg file="module/Application/test/phpunit.xml"/>-->
-        <!--</exec>-->
+        <exec executable="./vendor/bin/phpunit" passthru="true" checkreturn="true">
+            <arg value="-c"/>
+            <arg file="module/Admin/test/phpunit.xml"/>
+        </exec>
     </target>
 
     <target name="doctrine-update">

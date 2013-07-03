@@ -1,6 +1,21 @@
 {
     "name": "ftdebugger/ZendSkeletonApplication",
     "description": "Skeleton Application for ZF2 with doctrine, twig and assetic",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Evgeny Shpilevsky",
+            "email": "evgeny@shpilevsky.com",
+            "role": "Developer"
+        }
+    ],
+    "keywords": [
+        "framework",
+        "zf2",
+        "doctrine",
+        "twig",
+        "assetic"
+    ],
     "require": {
         "php":                                  ">=5.4",
         "zendframework/zendframework":          "2.2.1",

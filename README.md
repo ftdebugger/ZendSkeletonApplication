@@ -1,7 +1,7 @@
 ZendSkeletonApplication + Doctrine + Twig + Assetic
 ===================================================
 
-Основано на [ZendSkeletonApplication](https://github.com/zendframework/ZendSkeletonApplication)
+Based on [ZendSkeletonApplication](https://github.com/zendframework/ZendSkeletonApplication)
 
 
 Installation Using Composer
@@ -12,3 +12,10 @@ and use `composer` to install dependencies using the `create-project` command:
 
     curl -s https://getcomposer.org/installer | php --
     php composer.phar create-project -sdev ftdebugger/ZendSkeletonApplication PATH_TO_INSTALL
+
+    npm install
+    phing build
+
+Than edit copy `config/autoload/local.php.dist` to `config/autoload/local.php` and edit your DB settings.
+
+    phing doctrine-update
