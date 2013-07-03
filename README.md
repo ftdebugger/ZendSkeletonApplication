@@ -14,8 +14,8 @@ and use `composer` to install dependencies using the `create-project` command:
     php composer.phar create-project -sdev ftdebugger/zend-skeleton-application PATH_TO_INSTALL
 
     npm install
-    phing build
+    ant build
 
 Than copy `config/autoload/local.php.dist` to `config/autoload/local.php` and edit your DB settings.
 
-    phing doctrine-update
+    ant doctrine-update

@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="/usr/share/php5/PEAR/data/phing/etc/phing-grammar.rng"
-        type="application/xml"
-        schematypens="http://relaxng.org/ns/structure/1.0"?>
 
-<project name="Make logic.by" basedir="." default="build">
+<project name="ZendSkeletonApplcation" basedir="." default="build">
 
     <target name="assets">
         <exec executable="php">
@@ -22,7 +19,7 @@
     </target>
 
     <target name="phpunit">
-        <exec executable="./vendor/bin/phpunit" passthru="true" checkreturn="true">
+        <exec executable="./vendor/bin/phpunit" failonerror="true" append="true">
             <arg value="-c"/>
             <arg file="module/Admin/test/phpunit.xml"/>
         </exec>
