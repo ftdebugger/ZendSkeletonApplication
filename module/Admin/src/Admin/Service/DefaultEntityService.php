@@ -13,7 +13,6 @@ use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
 use Zend\Form\Annotation\AnnotationBuilder;
 use Zend\Form\Element\Button;
-use Zend\Form\Element\Submit;
 use Zend\Form\Element\Text;
 use Zend\Form\Factory;
 use Zend\Form\Form;
