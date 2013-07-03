@@ -12,7 +12,6 @@ use Doctrine\ORM\EntityManager;
 use Zend\Http\Response;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Stdlib\Hydrator\ClassMethods;
-use Zend\View\Model\ViewModel;
 
 class EntityController extends AbstractActionController
 {
@@ -44,7 +43,11 @@ class EntityController extends AbstractActionController
             return $this->notFoundAction();
         }
 
-        $list = $entity->getService()->getList();
+        $filter = $entity->getService()->getFilterForm();
+        $filter->setData($this->params()->fromQuery());
+        $filter->isValid();
+
+        $list = $entity->getService()->getList($filter->getData());
         $list->setCurrentPageNumber($this->params()->fromRoute('page'));
 
         $hydrator = new ClassMethods();
@@ -66,7 +69,8 @@ class EntityController extends AbstractActionController
             'entity' => $entity,
             'paginator' => $list,
             'table' => $table,
-            'head' => $head
+            'head' => $head,
+            'filter' => $filter
         );
     }
 

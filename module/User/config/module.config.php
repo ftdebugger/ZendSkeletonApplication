@@ -41,7 +41,8 @@ return array(
             'User' => array(
                 'entity' => 'User\Entity\User',
                 'fields' => array('id', 'username', 'email', 'display_name'),
-                'allow' => array('list', 'edit', 'remove')
+                'allow' => array('list', 'edit', 'remove'),
+                'filter' => array('username', 'email', 'display_name')
             )
         )
     )

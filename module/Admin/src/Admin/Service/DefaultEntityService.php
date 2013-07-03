@@ -13,6 +13,9 @@ use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
 use Zend\Form\Annotation\AnnotationBuilder;
 use Zend\Form\Element\Button;
+use Zend\Form\Element\Submit;
+use Zend\Form\Element\Text;
+use Zend\Form\Factory;
 use Zend\Form\Form;
 use Zend\Paginator\Paginator;
 use Zend\ServiceManager\ServiceManager;
@@ -41,11 +44,27 @@ class DefaultEntityService implements EntityServiceInterface
     }
 
     /**
+     * @param array $criteria
      * @return Paginator
      */
-    public function getList()
+    public function getList(array $criteria = array())
     {
         $query = $this->getRepository()->createQueryBuilder('e');
+
+        $meta = $this->getEntityManager()->getClassMetadata($this->entity->getClassName());
+
+        foreach ($criteria as $key => $value) {
+            if ($value != '') {
+                if (isset($meta->fieldNames[$key])) {
+                    $key = $meta->fieldNames[$key];
+                }
+
+                if (isset($meta->fieldMappings[$key])) {
+                    $query->andWhere('e.' . $key . ' like :' . $key);
+                    $query->setParameter($key, $value . '%');
+                }
+            }
+        }
 
         $pagination = new ORMPaginator($query);
         $pagination = new DoctrinePaginator($pagination);
@@ -74,6 +93,49 @@ class DefaultEntityService implements EntityServiceInterface
         $form->get('submit')->setAttribute('type', 'submit');
 
         return $form;
+    }
+
+    /**
+     * @throws RuntimeException
+     * @return Form
+     */
+    public function getFilterForm()
+    {
+        $filters = $this->entity->getOptions()->getFilter();
+
+        if ($filters) {
+            if (is_string($filters)) {
+                $form = $this->serviceLocator->get($filters);
+            } elseif (is_array($filters)) {
+                $simple = true;
+                foreach ($filters as $filter) {
+                    $simple = $simple && is_string($filter);
+                }
+
+                if ($simple) {
+                    $form = new Form();
+                    $form->setAttribute('method', 'GET');
+
+                    foreach ($filters as $filter) {
+                        $label = str_replace('_', ' ', $filter);
+                        $form->add(new Text($filter, ['label' => $label]));
+                    }
+                    $submit = new Button('submit', ['label' => 'Filter']);
+                    $submit->setAttribute('type', 'submit');
+                    $form->add($submit);
+
+                } else {
+                    $factory = new Factory();
+                    $form = $factory->createForm($filters);
+                }
+            } else {
+                throw new RuntimeException('Unknown type of filter');
+            }
+
+            return $form;
+        }
+
+        return new Form();
     }
 
     /**

@@ -16,7 +16,7 @@ interface EntityServiceInterface
     /**
      * @return Paginator
      */
-    public function getList();
+    public function getList(array $criteria = array());
 
     /**
      * @return mixed
@@ -27,6 +27,11 @@ interface EntityServiceInterface
      * @return Form
      */
     public function getForm();
+
+    /**
+     * @return Form
+     */
+    public function getFilterForm();
 
     /**
      * @param int $id

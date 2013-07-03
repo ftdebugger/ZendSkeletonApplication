@@ -38,6 +38,11 @@ class EntityOptions extends AbstractOptions
     protected $allow = ['list', 'create', 'edit', 'remove'];
 
     /**
+     * @var array
+     */
+    protected $filter;
+
+    /**
      * Set value of Entity
      *
      * @param string $entity
@@ -119,6 +124,27 @@ class EntityOptions extends AbstractOptions
     public function getAllow()
     {
         return $this->allow;
+    }
+
+    /**
+     * Set value of Filter
+     *
+     * @param array $filter
+     * @throws \Admin\Exception\RuntimeException
+     */
+    public function setFilter($filter)
+    {
+        $this->filter = $filter;
+    }
+
+    /**
+     * Return value of Filter
+     *
+     * @return array
+     */
+    public function getFilter()
+    {
+        return $this->filter;
     }
 
     /**
