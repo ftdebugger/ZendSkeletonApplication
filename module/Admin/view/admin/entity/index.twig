@@ -52,4 +52,6 @@
         {% endfor %}
     </table>
 
+    {{ paginationControl(paginator, 'Sliding', 'admin/pagination', {route: 'admin/entity', routeParams: {entity: entity.name}}) }}
+
 {% endblock %}

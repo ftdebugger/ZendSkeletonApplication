@@ -17,10 +17,11 @@ return array(
                     'entity' => array(
                         'type' => 'segment',
                         'options' => array(
-                            'route' => '/entity/:entity',
+                            'route' => '/entity/:entity[/page/:page]',
                             'defaults' => array(
                                 'controller' => 'admin-entity',
-                                'action' => 'index'
+                                'action' => 'index',
+                                'page' => 1
                             )
                         ),
                         'may_terminate' => true,

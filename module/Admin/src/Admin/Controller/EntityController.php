@@ -35,7 +35,7 @@ class EntityController extends AbstractActionController
         }
 
         $list = $entity->getService()->getList();
-        $list->setCurrentPageNumber($this->params()->fromQuery('page'));
+        $list->setCurrentPageNumber($this->params()->fromRoute('page'));
 
         $hydrator = new ClassMethods();
         $table = array();
