@@ -23,7 +23,8 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface
             include __DIR__ . '/config/module.config.php',
             include __DIR__ . '/config/auth.config.php',
             include __DIR__ . '/config/navigation.config.php',
-            include __DIR__ . '/config/route.config.php'
+            include __DIR__ . '/config/route.config.php',
+            include __DIR__ . '/config/assetic.config.php'
         );
     }
 
