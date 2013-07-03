@@ -16,6 +16,6 @@ and use `composer` to install dependencies using the `create-project` command:
     npm install
     phing build
 
-Than edit copy `config/autoload/local.php.dist` to `config/autoload/local.php` and edit your DB settings.
+Than copy `config/autoload/local.php.dist` to `config/autoload/local.php` and edit your DB settings.
 
     phing doctrine-update
