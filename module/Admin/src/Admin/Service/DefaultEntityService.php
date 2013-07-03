@@ -33,6 +33,16 @@ class DefaultEntityService implements EntityServiceInterface
     protected $serviceLocator;
 
     /**
+     * @var EntityRepository
+     */
+    protected $repository;
+
+    /**
+     * @var EntityManager
+     */
+    protected $entityManager;
+
+    /**
      * @param Entity $entity
      * @param ServiceManager $serviceLocator
      */
@@ -50,6 +60,27 @@ class DefaultEntityService implements EntityServiceInterface
     {
         $query = $this->getRepository()->createQueryBuilder('e');
 
+        foreach ($this->filterCriteria($criteria) as $key => $value) {
+            $query->andWhere('e.' . $key . ' like :' . $key);
+            $query->setParameter($key, $value . '%');
+        }
+
+        $pagination = new ORMPaginator($query);
+        $pagination = new DoctrinePaginator($pagination);
+        $pagination = new Paginator($pagination);
+
+        return $pagination;
+    }
+
+    /**
+     * @param array $criteria
+     *
+     * @return array
+     */
+    protected function filterCriteria(array $criteria = array())
+    {
+        $result = array();
+
         $meta = $this->getEntityManager()->getClassMetadata($this->entity->getClassName());
 
         foreach ($criteria as $key => $value) {
@@ -59,17 +90,12 @@ class DefaultEntityService implements EntityServiceInterface
                 }
 
                 if (isset($meta->fieldMappings[$key])) {
-                    $query->andWhere('e.' . $key . ' like :' . $key);
-                    $query->setParameter($key, $value . '%');
+                    $result[$key] = $value;
                 }
             }
         }
 
-        $pagination = new ORMPaginator($query);
-        $pagination = new DoctrinePaginator($pagination);
-        $pagination = new Paginator($pagination);
-
-        return $pagination;
+        return $result;
     }
 
     /**
@@ -164,6 +190,7 @@ class DefaultEntityService implements EntityServiceInterface
      * Remove entity
      *
      * @param mixed $model
+     * @return mixed|void
      */
     public function remove($model)
     {
@@ -171,13 +198,37 @@ class DefaultEntityService implements EntityServiceInterface
     }
 
     /**
+     * Set value of Repository
+     *
+     * @param EntityRepository $repository
+     */
+    public function setRepository($repository)
+    {
+        $this->repository = $repository;
+    }
+
+    /**
      * @return EntityRepository
      */
     public function getRepository()
     {
-        return $this->getEntityManager()->getRepository(
-            $this->entity->getClassName()
-        );
+        if (null == $this->repository) {
+            $this->repository = $this->getEntityManager()->getRepository(
+                $this->entity->getClassName()
+            );
+        }
+
+        return $this->repository;
+    }
+
+    /**
+     * Set value of EntityManager
+     *
+     * @param \Doctrine\ORM\EntityManager $entityManager
+     */
+    public function setEntityManager($entityManager)
+    {
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -185,7 +236,10 @@ class DefaultEntityService implements EntityServiceInterface
      */
     public function getEntityManager()
     {
-        return $this->serviceLocator->get('entity_manager');
+        if (null === $this->entityManager) {
+            $this->entityManager = $this->serviceLocator->get('entity_manager');
+        }
+        return $this->entityManager;
     }
 
 }
