@@ -43,7 +43,7 @@ class DefaultEntityService implements EntityServiceInterface
     protected $entityManager;
 
     /**
-     * @param Entity $entity
+     * @param Entity         $entity
      * @param ServiceManager $serviceLocator
      */
     public function __construct($entity, $serviceLocator)
@@ -53,7 +53,7 @@ class DefaultEntityService implements EntityServiceInterface
     }
 
     /**
-     * @param array $criteria
+     * @param  array     $criteria
      * @return Paginator
      */
     public function getList(array $criteria = array())
@@ -104,6 +104,7 @@ class DefaultEntityService implements EntityServiceInterface
     public function factory()
     {
         $entity = $this->entity->getClassName();
+
         return new $entity;
     }
 
@@ -164,7 +165,7 @@ class DefaultEntityService implements EntityServiceInterface
     }
 
     /**
-     * @param int $id
+     * @param  int              $id
      * @throws RuntimeException
      * @return mixed
      */
@@ -189,7 +190,7 @@ class DefaultEntityService implements EntityServiceInterface
     /**
      * Remove entity
      *
-     * @param mixed $model
+     * @param  mixed      $model
      * @return mixed|void
      */
     public function remove($model)
@@ -239,6 +240,7 @@ class DefaultEntityService implements EntityServiceInterface
         if (null === $this->entityManager) {
             $this->entityManager = $this->serviceLocator->get('entity_manager');
         }
+
         return $this->entityManager;
     }
 

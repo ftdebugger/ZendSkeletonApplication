@@ -34,7 +34,7 @@ class Container
     }
 
     /**
-     * @param string $name
+     * @param  string           $name
      * @throws RuntimeException
      *
      * @return Entity

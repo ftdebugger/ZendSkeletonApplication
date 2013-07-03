@@ -20,7 +20,7 @@ class Configuration extends AbstractOptions
     /**
      * Set value of Entities
      *
-     * @param array $entities
+     * @param  array                      $entities
      * @throws Exception\RuntimeException
      */
     public function setEntities($entities)
@@ -46,6 +46,5 @@ class Configuration extends AbstractOptions
     {
         return $this->entities;
     }
-
 
 }

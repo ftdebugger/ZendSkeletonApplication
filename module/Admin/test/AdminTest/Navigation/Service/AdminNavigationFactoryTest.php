@@ -5,7 +5,6 @@
 
 namespace AdminTest\Navigation\Service;
 
-
 use Admin\Entities\Container;
 use Admin\Entities\Entity;
 use Admin\Entities\EntityOptions;

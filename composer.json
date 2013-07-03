@@ -1,13 +1,6 @@
 {
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "http://packages.dev.infonet.by/"
-        }
-    ],
-
-    "name": "ftdebugger/skeleton-application",
-    "description": "Skeleton Application for ZF2",
+    "name": "ftdebugger/ZendSkeletonApplication",
+    "description": "Skeleton Application for ZF2 with doctrine, twig and assetic",
     "require": {
         "php":                                  ">=5.4",
         "zendframework/zendframework":          "2.2.1",
@@ -24,7 +17,6 @@
     "require-dev": {
         "zendframework/zftool":                 "dev-master",
         "zendframework/zend-developer-tools":   "dev-master",
-        "phpunit/phpunit":                      "~3.7",
-        "ftdebugger/scaffolder":                "dev-master"
+        "phpunit/phpunit":                      "~3.7"
     }
 }

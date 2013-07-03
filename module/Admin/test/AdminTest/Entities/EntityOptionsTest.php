@@ -5,7 +5,6 @@
 
 namespace AdminTest\Entities;
 
-
 use Admin\Entities\EntityOptions;
 
 class EntityOptionsTest extends \PHPUnit_Framework_TestCase

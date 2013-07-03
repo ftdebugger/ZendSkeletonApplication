@@ -5,7 +5,6 @@
 
 namespace Admin\Exception;
 
-
 class RuntimeException extends \RuntimeException
 {
 

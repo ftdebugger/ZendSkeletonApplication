@@ -5,7 +5,6 @@
 
 namespace Admin\Entities;
 
-
 use Admin\Exception\RuntimeException;
 use Zend\Stdlib\AbstractOptions;
 
@@ -85,7 +84,7 @@ class EntityOptions extends AbstractOptions
     /**
      * Set value of Fields
      *
-     * @param array $fields
+     * @param  array                             $fields
      * @throws \Admin\Exception\RuntimeException
      */
     public function setFields($fields)
@@ -129,7 +128,7 @@ class EntityOptions extends AbstractOptions
     /**
      * Set value of Filter
      *
-     * @param array $filter
+     * @param  array                             $filter
      * @throws \Admin\Exception\RuntimeException
      */
     public function setFilter($filter)

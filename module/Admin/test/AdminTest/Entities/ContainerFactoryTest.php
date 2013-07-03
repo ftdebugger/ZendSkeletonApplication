@@ -5,7 +5,6 @@
 
 namespace AdminTest\Entities;
 
-
 use Admin\Configuration;
 use Admin\Entities\Container;
 use Admin\Entities\ContainerFactory;

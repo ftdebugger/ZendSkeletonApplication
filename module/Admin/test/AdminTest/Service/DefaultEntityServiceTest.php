@@ -5,7 +5,6 @@
 
 namespace AdminTest\Service;
 
-
 use Admin\Entities\Entity;
 use Admin\Entities\EntityOptions;
 use Admin\Service\DefaultEntityService;
@@ -89,7 +88,7 @@ class DefaultEntityServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testFilterCriteria()
     {
-        $meta = (object)array(
+        $meta = (object) array(
             'fieldNames' => array(
                 'display_name' => 'displayName',
             ),
@@ -252,6 +251,7 @@ class DefaultEntityServiceTest extends \PHPUnit_Framework_TestCase
     protected function getServiceLocator()
     {
         $serviceLocator = $this->getMock('Zend\ServiceManager\ServiceManager');
+
         return $serviceLocator;
     }
 

@@ -5,11 +5,9 @@
 
 namespace Admin\Controller;
 
-
 use Admin\Entities\Entity;
 use Admin\Service\EntityService;
 use Doctrine\ORM\EntityManager;
-use Zend\Http\Response;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Stdlib\Hydrator\ClassMethods;
 
@@ -151,7 +149,6 @@ class EntityController extends AbstractActionController
         return $form;
     }
 
-
     /**
      * Return value of EntityService
      *
@@ -162,6 +159,7 @@ class EntityController extends AbstractActionController
         if (null === $this->entityService) {
             $this->entityService = $this->getServiceLocator()->get('Admin/Service/EntityService');
         }
+
         return $this->entityService;
     }
 

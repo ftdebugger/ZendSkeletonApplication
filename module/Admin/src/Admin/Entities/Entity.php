@@ -5,12 +5,10 @@
 
 namespace Admin\Entities;
 
-
 use Admin\Exception\RuntimeException;
 use Admin\Service\DefaultEntityService;
 use Admin\Service\EntityServiceInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\Stdlib\AbstractOptions;
 
 class Entity
 {
@@ -36,7 +34,7 @@ class Entity
     protected $serviceLocator;
 
     /**
-     * @param string $name
+     * @param string        $name
      * @param EntityOptions $options
      */
     public function __construct($name, $options)

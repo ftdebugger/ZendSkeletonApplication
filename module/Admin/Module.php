@@ -57,6 +57,7 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface
             'factories' => array(
                 'admin-config' => function (ServiceManager $sm) {
                     $config = $sm->get('Config');
+
                     return new Configuration($config['admin']);
                 },
                 'Admin/Service/EntityService' => function (ServiceManager $sm) {

@@ -5,7 +5,6 @@
 
 namespace Admin\Service;
 
-
 use Admin\Exception\RuntimeException;
 use Zend\Form\Form;
 use Zend\Paginator\Paginator;
@@ -34,7 +33,7 @@ interface EntityServiceInterface
     public function getFilterForm();
 
     /**
-     * @param int $id
+     * @param  int              $id
      * @throws RuntimeException
      * @return mixed
      */

@@ -5,7 +5,6 @@
 
 namespace Admin\Service;
 
-
 use Admin\Entities\Container;
 use Admin\Entities\Entity;
 use Zend\ServiceManager\ServiceManager;
@@ -27,7 +26,7 @@ class EntityService
     }
 
     /**
-     * @param string $name
+     * @param  string $name
      * @return Entity
      */
     public function getEntity($name)

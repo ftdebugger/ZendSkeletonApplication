@@ -5,7 +5,6 @@
 
 namespace AdminTest\Entities;
 
-
 use Admin\Entities\Entity;
 use Admin\Entities\EntityOptions;
 

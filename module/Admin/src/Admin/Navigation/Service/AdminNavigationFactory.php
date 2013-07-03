@@ -6,7 +6,6 @@
 namespace Admin\Navigation\Service;
 
 use Admin\Entities\Container;
-use Zend\Navigation\Exception;
 use Zend\Navigation\Service\AbstractNavigationFactory;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Stdlib\ArrayUtils;
@@ -32,7 +31,7 @@ class AdminNavigationFactory extends AbstractNavigationFactory
     }
 
     /**
-     * @param ServiceLocatorInterface $serviceLocator
+     * @param  ServiceLocatorInterface $serviceLocator
      * @return array
      */
     protected function getEntitiesPage(ServiceLocatorInterface $serviceLocator)
@@ -65,6 +64,7 @@ class AdminNavigationFactory extends AbstractNavigationFactory
             );
 
             $pages = $this->getPagesFromConfig($config);
+
             return $this->preparePages($serviceLocator, $pages);
         }
 
