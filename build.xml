@@ -13,9 +13,9 @@
     </target>
 
     <target name="classmap" description="Generate classmap">
+        <exec command="./vendor/bin/classmap_generator.php --overwrite --library module/Admin"/>
         <exec command="./vendor/bin/classmap_generator.php --overwrite --library module/Application"/>
         <exec command="./vendor/bin/classmap_generator.php --overwrite --library module/User"/>
-        <exec command="./vendor/bin/classmap_generator.php --overwrite --library module/Admin"/>
     </target>
 
     <target name="phpunit">
@@ -25,48 +25,17 @@
         </exec>
     </target>
 
-    <target name="doctrine-update">
-        <exec command="./vendor/bin/doctrine-module orm:clear-cache:metadata"/>
-        <exec command="./vendor/bin/doctrine-module orm:clear-cache:query"/>
-        <exec command="./vendor/bin/doctrine-module orm:clear-cache:result"/>
-        <exec command="./vendor/bin/doctrine-module orm:schema-tool:update --force" passthru="true"/>
-    </target>
-
-    <target name="pack" depends="build" description="Pack project into archive">
-        <tar basedir="." destfile="deploy.tar.gz">
-            <fileset dir=".">
-                <include name="module/**"/>
-                <include name="config/application.config.php"/>
-                <include name="config/autoload/global.php"/>
-                <include name="config/autoload/*.global.php"/>
-                <include name="composer.json"/>
-                <include name="package.json"/>
-                <include name="*.php"/>
-                <include name="public/index.php"/>
-            </fileset>
-        </tar>
-    </target>
-
     <target name="clean" description="just clean">
         <delete>
             <fileset dir="public/assets">
                 <include name="*.js"/>
                 <include name="*.css"/>
             </fileset>
-            <fileset dir=".">
-                <include name="deploy.tar.gz"/>
-            </fileset>
         </delete>
     </target>
 
-    <target name="deploy" depends="pack" description="Deploy to dev server">
-        <echo>Not implemented yet</echo>
-
-        <phingcall target="clean"/>
-    </target>
-
     <target name="phpcs">
-        <exec command="./vendor/bin/phpcsfixer" passthru="true"/>
+        <exec command="./vendor/bin/phpcs --standard=PSR2 ./module/" passthru="true"/>
     </target>
 
     <target name="build" depends="classmap, assets"/>

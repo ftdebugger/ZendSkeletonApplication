@@ -18,4 +18,4 @@ and use `composer` to install dependencies using the `create-project` command:
 
 Than copy `config/autoload/local.php.dist` to `config/autoload/local.php` and edit your DB settings.
 
-    ant doctrine-update
+    ./vendor/bin/doctrine-module orm:schema-tool:create
