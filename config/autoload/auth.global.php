@@ -11,19 +11,16 @@ return array(
          */
         'role_providers' => array(
             'BjyAuthorize\Provider\Role\Config' => array(
-                'guest' => array(
+                'guest' => array(),
+                'user' => array(
                     'children' => array(
-                        'user' => array(
+                        'manager' => array(
                             'children' => array(
-                                'manager' => array(
-                                    'children' => array(
-                                        'admin' => array()
-                                    )
-                                ),
+                                'admin' => array()
                             )
-                        )
+                        ),
                     )
-                ),
+                )
             ),
         ),
         // resources providers provide a list of resources that will be tracked
@@ -31,6 +28,7 @@ return array(
         'resource_providers' => array(
             'BjyAuthorize\Provider\Resource\Config' => array(
                 'public' => array(),
+                'not_logged' => array(),
                 'logged' => array(),
                 'learning' => array(),
                 'protected' => array(),
@@ -46,8 +44,8 @@ return array(
         'rule_providers' => array(
             'BjyAuthorize\Provider\Rule\Config' => array(
                 'allow' => array(
-                    array('guest', 'public', 'view'),
-                    array('user', 'logged'),
+                    array('guest', ['public', 'not_logged']),
+                    array('user', ['public', 'logged']),
                     array('manager', 'protected'),
                     array('admin', 'admin'),
                 ),

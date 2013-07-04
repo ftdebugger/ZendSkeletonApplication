@@ -16,8 +16,5 @@ return array(
                 'resource' => 'admin'
             ),
         )
-    ),
-    'admin' => array(
-        'entities' => array()
     )
 );

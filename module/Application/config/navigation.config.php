@@ -6,7 +6,7 @@ return array(
             array(
                 'label' => 'Home',
                 'route' => 'home',
-                'resource' => 'guest'
+                'resource' => 'public'
             )
         )
     )

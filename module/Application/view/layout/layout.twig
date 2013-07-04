@@ -32,17 +32,6 @@
                 <a class="brand" href="{{ url('home') }}">Skeleton Application</a>
                 <div class="nav-collapse collapse">
                     {{ navigation('navigation').menu().setPartial('partial/menu.twig')|raw }}
-
-                    <ul class="nav right">
-                        {% if zfcUserIdentity() %}
-                            <li><a href="{{ url('zfcuser') }}">{{ zfcUserIdentity().getEmail() }}</a></li>
-                            <li><a href="{{ url('zfcuser/logout') }}">выйти</a></li>
-                        {% else %}
-                            <li><a href="{{ url('zfcuser/login') }}">войти</a></li>
-                            <li><a href="{{ url('zfcuser/register') }}">регистрация</a></li>
-                        {% endif %}
-                    </ul>
-
                 </div><!--/.nav-collapse -->
             </div>
         </div>
@@ -50,10 +39,6 @@
     <div class="container">
         <!-- content|raw is required for phtml fallback -->
         {% block content %}{{ content|raw }}{% endblock content %}
-        <hr>
-        <footer>
-            <p>&copy; {{ date().format('Y') }} </p>
-        </footer>
     </div> <!-- /container -->
 
 

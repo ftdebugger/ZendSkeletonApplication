@@ -53,7 +53,8 @@ class Module implements ConfigProviderInterface, BootstrapListenerInterface, Con
     {
         return array_merge(
             include __DIR__ . '/config/module.config.php',
-            include __DIR__ . '/config/auth.config.php'
+            include __DIR__ . '/config/auth.config.php',
+            include __DIR__ . "/config/navigation.config.php"
         );
     }
 

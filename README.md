@@ -1,5 +1,5 @@
-ZendSkeletonApplication + Doctrine + Twig + Assetic
-===================================================
+ZF2 + Doctrine + Twig + Assetic [![Build Status](https://travis-ci.org/ftdebugger/ZendSkeletonApplication.png?branch=master)](https://travis-ci.org/ftdebugger/ZendSkeletonApplication)
+===============================
 
 Based on [ZendSkeletonApplication](https://github.com/zendframework/ZendSkeletonApplication)
 

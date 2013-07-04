@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="ZendSkeletonApplcation" basedir="." default="build">
+<project name="ZendSkeletonApplication" basedir="." default="build">
 
     <target name="assets">
         <exec executable="php">
