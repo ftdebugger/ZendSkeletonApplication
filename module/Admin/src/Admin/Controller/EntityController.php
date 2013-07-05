@@ -132,7 +132,7 @@ class EntityController extends AbstractActionController
      * @param $model
      * @return array
      */
-    protected function editModel($entity, $model)
+    public function editModel($entity, $model)
     {
         $form = $entity->getService()->getForm();
         $form->bind($model);
@@ -148,6 +148,15 @@ class EntityController extends AbstractActionController
         }
 
         return $form;
+    }
+
+    /**
+     * @return Entity
+     */
+    public function loadEntity()
+    {
+        $entityName = $this->params()->fromRoute('entity');
+        return $this->getEntityService()->getEntity($entityName);
     }
 
     /**

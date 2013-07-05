@@ -81,12 +81,12 @@ class AdminNavigationFactoryTest extends \PHPUnit_Framework_TestCase
                 array(
                      'entities' => array(
                          'label' => 'Entities',
-                         'route' => 'admin/entities',
+                         'route' => 'admin/entity',
                          'resource' => 'admin',
                          'pages' => array(
                              array(
                                  'label' => 'a',
-                                 'route' => 'admin/entity',
+                                 'route' => 'admin/entity/entity',
                                  'params' => array(
                                      'entity' => 'a'
                                  ),
