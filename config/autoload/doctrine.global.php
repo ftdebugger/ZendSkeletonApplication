@@ -26,12 +26,12 @@ return array(
             )
         ),
         // migrations configuration
-//        'migrations_configuration' => array(
-//            'orm_default' => array(
-//                'directory' => 'data/DoctrineORMModule/Migrations',
-//                'namespace' => 'DoctrineORMModule\Migrations',
-//                'table' => 'migrations',
-//            ),
-//        ),
+        'migrations_configuration' => array(
+            'orm_default' => array(
+                'directory' => 'data/migrations',
+                'namespace' => 'DoctrineORMModule\Migrations',
+                'table' => 'migrations',
+            ),
+        ),
     )
 );
