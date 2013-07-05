@@ -8,9 +8,7 @@ namespace Admin\Controller;
 use Admin\Entities\Entity;
 use Admin\Service\EntityService;
 use Doctrine\ORM\EntityManager;
-use DoctrineModule\Stdlib\Hydrator\DoctrineObject;
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Stdlib\Hydrator\ClassMethods;
 
 class EntityController extends AbstractActionController
 {

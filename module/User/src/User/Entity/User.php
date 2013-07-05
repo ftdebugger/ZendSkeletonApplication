@@ -5,8 +5,8 @@ namespace User\Entity;
 use BjyAuthorize\Provider\Role\ProviderInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use ZfcUser\Entity\UserInterface;
 use Zend\Form\Annotation as Form;
+use ZfcUser\Entity\UserInterface;
 
 /**
  * An example of how to implement a role aware user entity.

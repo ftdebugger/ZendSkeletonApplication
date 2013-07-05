@@ -7,7 +7,6 @@ namespace Admin\Service;
 
 use Admin\Entities\Container;
 use Admin\Entities\Entity;
-use Admin\Table\Row;
 use Admin\Table\Table;
 use Zend\Paginator\Paginator;
 use Zend\ServiceManager\ServiceManager;

@@ -2,8 +2,8 @@
 
 namespace User;
 
-use User\Controller\Plugin\Authentication;
 use BjyAuthorize\Service\Authorize;
+use User\Controller\Plugin\Authentication;
 use User\Provider\Identity;
 use User\Service\UserService;
 use Zend\EventManager\EventInterface;
