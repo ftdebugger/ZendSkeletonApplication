@@ -14,7 +14,7 @@ return array(
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
-                    'entities' => array(
+                    'entity' => array(
                         'type' => 'literal',
                         'options' => array(
                             'route' => '/entity',
@@ -22,50 +22,53 @@ return array(
                                 'controller' => 'admin-entity',
                                 'action' => 'index',
                             )
-                        )
-                    ),
-                    'entity' => array(
-                        'type' => 'segment',
-                        'options' => array(
-                            'route' => '/entity/:entity[/page/:page]',
-                            'defaults' => array(
-                                'controller' => 'admin-entity',
-                                'action' => 'list',
-                                'page' => 1
-                            )
                         ),
                         'may_terminate' => true,
                         'child_routes' => array(
-                            'remove' => array(
-                                'type' => 'literal',
-                                'options' => array(
-                                    'route' => '/remove',
-                                    'defaults' => array(
-                                        'controller' => 'admin-entity',
-                                        'action' => 'remove'
-                                    )
-                                ),
-                            ),
-                            'create' => array(
-                                'type' => 'literal',
-                                'options' => array(
-                                    'route' => '/create',
-                                    'defaults' => array(
-                                        'controller' => 'admin-entity',
-                                        'action' => 'create'
-                                    )
-                                ),
-                            ),
-                            'edit' => array(
+                            'entity' => array(
                                 'type' => 'segment',
                                 'options' => array(
-                                    'route' => '/edit/:id',
+                                    'route' => '/:entity[/page/:page]',
                                     'defaults' => array(
                                         'controller' => 'admin-entity',
-                                        'action' => 'edit'
-                                    )
+                                        'action' => 'list',
+                                        'page' => 1
+                                    ),
                                 ),
-                            )
+                                'may_terminate' => true,
+                                'child_routes' => array(
+                                    'remove' => array(
+                                        'type' => 'literal',
+                                        'options' => array(
+                                            'route' => '/remove',
+                                            'defaults' => array(
+                                                'controller' => 'admin-entity',
+                                                'action' => 'remove'
+                                            )
+                                        ),
+                                    ),
+                                    'create' => array(
+                                        'type' => 'literal',
+                                        'options' => array(
+                                            'route' => '/create',
+                                            'defaults' => array(
+                                                'controller' => 'admin-entity',
+                                                'action' => 'create'
+                                            )
+                                        ),
+                                    ),
+                                    'edit' => array(
+                                        'type' => 'segment',
+                                        'options' => array(
+                                            'route' => '/edit/:id',
+                                            'defaults' => array(
+                                                'controller' => 'admin-entity',
+                                                'action' => 'edit'
+                                            )
+                                        ),
+                                    )
+                                )
+                            ),
                         )
                     )
                 )

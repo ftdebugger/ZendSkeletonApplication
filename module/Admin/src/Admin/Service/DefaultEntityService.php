@@ -10,8 +10,8 @@ use Admin\Exception\RuntimeException;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use DoctrineORMModule\Form\Annotation\AnnotationBuilder;
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
-use Zend\Form\Annotation\AnnotationBuilder;
 use Zend\Form\Element\Button;
 use Zend\Form\Element\Text;
 use Zend\Form\Factory;
@@ -113,7 +113,7 @@ class DefaultEntityService implements EntityServiceInterface
      */
     public function getForm()
     {
-        $builder = new AnnotationBuilder();
+        $builder = new AnnotationBuilder($this->getEntityManager());
         $form = $builder->createForm($this->entity->getClassName());
         $form->add(new Button('submit', ['label' => 'save']));
         $form->get('submit')->setAttribute('type', 'submit');

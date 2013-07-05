@@ -118,6 +118,10 @@ class User implements UserInterface, ProviderInterface
      */
     public function setUsername($username)
     {
+        if ($username == '') {
+            $username = null;
+        }
+
         $this->username = $username;
     }
 

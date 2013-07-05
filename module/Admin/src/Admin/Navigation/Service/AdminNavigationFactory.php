@@ -44,7 +44,7 @@ class AdminNavigationFactory extends AbstractNavigationFactory
             if ($entity->getOptions()->isAllowList()) {
                 $config[] = array(
                     'label' => $entity->getName(),
-                    'route' => 'admin/entity',
+                    'route' => 'admin/entity/entity',
                     'params' => array(
                         'entity' => $entity->getName()
                     ),
@@ -57,7 +57,7 @@ class AdminNavigationFactory extends AbstractNavigationFactory
             $config = array(
                 'entities' => array(
                     'label' => 'Entities',
-                    'route' => 'admin/entities',
+                    'route' => 'admin/entity',
                     'resource' => 'admin',
                     'pages' => $config
                 )

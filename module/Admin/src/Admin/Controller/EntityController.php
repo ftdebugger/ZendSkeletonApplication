@@ -8,6 +8,7 @@ namespace Admin\Controller;
 use Admin\Entities\Entity;
 use Admin\Service\EntityService;
 use Doctrine\ORM\EntityManager;
+use DoctrineModule\Stdlib\Hydrator\DoctrineObject;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Stdlib\Hydrator\ClassMethods;
 
@@ -121,7 +122,7 @@ class EntityController extends AbstractActionController
         $entity->getService()->remove($model);
         $this->getEntityManager()->flush();
 
-        $this->redirect()->toRoute('admin/entity', ['entity' => $entity->getName()]);
+        $this->redirect()->toRoute('admin/entity/entity', ['entity' => $entity->getName()]);
 
         return [];
     }
@@ -142,7 +143,7 @@ class EntityController extends AbstractActionController
                 $entity->getService()->save($model);
                 $this->getEntityManager()->flush();
                 $this->flashMessenger()->addSuccessMessage('Saved');
-                $this->redirect()->toRoute('admin/entity', ['entity' => $entity->getName()]);
+                $this->redirect()->toRoute('admin/entity/entity', ['entity' => $entity->getName()]);
             }
         }
 

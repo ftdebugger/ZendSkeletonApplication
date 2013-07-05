@@ -34,9 +34,5 @@
         </delete>
     </target>
 
-    <target name="phpcs">
-        <exec command="./vendor/bin/phpcs --standard=PSR2 ./module/" passthru="true"/>
-    </target>
-
     <target name="build" depends="classmap, assets"/>
 </project>

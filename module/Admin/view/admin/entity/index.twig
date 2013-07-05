@@ -14,14 +14,14 @@
         {% for entity in entities %}
             <tr>
                 <td>
-                    <a href="{{ url('admin/entity', {entity: entity.name}) }}">
+                    <a href="{{ url('admin/entity/entity', {entity: entity.name}) }}">
                         {{ entity.name }}
                     </a>
                 </td>
                 <td>{{ entity.options.entity }}</td>
                 <td>
                     {% if entity.options.isAllowCreate() %}
-                        <a href="{{ url('admin/entity/create', {'entity': entity.name}) }}" class="btn btn-info">Добавить</a>
+                        <a href="{{ url('admin/entity/entity/create', {'entity': entity.name}) }}" class="btn btn-info">Добавить</a>
                     {% endif %}
                 </td>
             </tr>

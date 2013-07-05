@@ -32,7 +32,6 @@
     },
     "require-dev": {
         "zendframework/zftool":                 "dev-master",
-        "phpunit/phpunit":                      "~3.7",
-        "squizlabs/php_codesniffer":            "1.4.*"
+        "phpunit/phpunit":                      "~3.7"
     }
 }
