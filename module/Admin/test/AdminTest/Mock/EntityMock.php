@@ -3,7 +3,7 @@
  * @author Evgeny Shpilevsky <evgeny@shpilevsky.com>
  */
 
-namespace AdminTest\Service\_files;
+namespace AdminTest\Mock;
 
 use Zend\Form\Annotation as Form;
 

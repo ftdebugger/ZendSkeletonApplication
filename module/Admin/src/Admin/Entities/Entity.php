@@ -91,6 +91,16 @@ class Entity
     }
 
     /**
+     * Set value of Service
+     *
+     * @param \Admin\Service\EntityServiceInterface $service
+     */
+    public function setService($service)
+    {
+        $this->service = $service;
+    }
+
+    /**
      * Set value of ServiceLocator
      *
      * @param ServiceLocatorInterface $serviceLocator

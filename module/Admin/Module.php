@@ -60,7 +60,7 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface
 
                     return new Configuration($config['admin']);
                 },
-                'Admin/Service/EntityService' => function (ServiceManager $sm) {
+                'Admin\Service\EntityService' => function (ServiceManager $sm) {
                     return new EntityService($sm);
                 }
             )

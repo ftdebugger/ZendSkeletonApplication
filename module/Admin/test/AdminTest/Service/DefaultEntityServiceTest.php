@@ -16,7 +16,7 @@ class DefaultEntityServiceTest extends \PHPUnit_Framework_TestCase
     public function testFactory()
     {
         $service = $this->getService();
-        $this->assertInstanceOf('AdminTest\Service\_files\EntityMock', $service->factory());
+        $this->assertInstanceOf('AdminTest\Mock\EntityMock', $service->factory());
     }
 
     public function testGetForm()
@@ -217,7 +217,7 @@ class DefaultEntityServiceTest extends \PHPUnit_Framework_TestCase
         $manager = $this->getMockBuilder('Doctrine\ORM\EntityManager')
             ->disableOriginalConstructor()->getMock();
         $manager->expects($this->once())->method('getRepository')
-            ->with('AdminTest\Service\_files\EntityMock')
+            ->with('AdminTest\Mock\EntityMock')
             ->will($this->returnValue('repository'));
 
         $service = $this->getService();
@@ -257,7 +257,7 @@ class DefaultEntityServiceTest extends \PHPUnit_Framework_TestCase
 
     protected function getEntity()
     {
-        return new Entity('a', new EntityOptions(['entity' => 'AdminTest\Service\_files\EntityMock']));
+        return new Entity('a', new EntityOptions(['entity' => 'AdminTest\Mock\EntityMock']));
     }
 
 }

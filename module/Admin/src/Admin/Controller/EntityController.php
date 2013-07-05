@@ -35,8 +35,7 @@ class EntityController extends AbstractActionController
      */
     public function listAction()
     {
-        $entityName = $this->params()->fromRoute('entity');
-        $entity = $this->getEntityService()->getEntity($entityName);
+        $entity = $this->loadEntity();
 
         if (!$entity->getOptions()->isAllowList()) {
             return $this->notFoundAction();
@@ -49,26 +48,12 @@ class EntityController extends AbstractActionController
         $list = $entity->getService()->getList($filter->getData());
         $list->setCurrentPageNumber($this->params()->fromRoute('page'));
 
-        $hydrator = new ClassMethods();
-        $table = array();
-        $head = $entity->getOptions()->getFields();
-
-        foreach ($list as $entityModel) {
-            $row = array_combine($head, array_fill(1, count($head), null));
-
-            foreach ($hydrator->extract($entityModel) as $name => $value) {
-                if (in_array($name, $head)) {
-                    $row[$name] = $value;
-                }
-            }
-            $table[] = $row;
-        }
+        $table = $this->getEntityService()->createTable($entity, $list);
 
         return array(
             'entity' => $entity,
             'paginator' => $list,
             'table' => $table,
-            'head' => $head,
             'filter' => $filter
         );
     }
@@ -111,8 +96,7 @@ class EntityController extends AbstractActionController
 
     public function removeAction()
     {
-        $entityName = $this->params()->fromRoute('entity');
-        $entity = $this->getEntityService()->getEntity($entityName);
+        $entity = $this->loadEntity();
 
         if (!$entity->getOptions()->isAllowRemove()) {
             return $this->notFoundAction();
@@ -167,10 +151,20 @@ class EntityController extends AbstractActionController
     public function getEntityService()
     {
         if (null === $this->entityService) {
-            $this->entityService = $this->getServiceLocator()->get('Admin/Service/EntityService');
+            $this->entityService = $this->getServiceLocator()->get('Admin\Service\EntityService');
         }
 
         return $this->entityService;
+    }
+
+    /**
+     * Set value of EntityService
+     *
+     * @param \Admin\Service\EntityService $entityService
+     */
+    public function setEntityService($entityService)
+    {
+        $this->entityService = $entityService;
     }
 
     /**
