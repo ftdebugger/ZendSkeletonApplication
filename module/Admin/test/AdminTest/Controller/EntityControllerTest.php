@@ -62,7 +62,7 @@ class EntityControllerTest extends \PHPUnit_Framework_TestCase
         $controller = $this->getController(['loadEntity', 'notFoundAction']);
         $controller->expects($this->once())->method('loadEntity')->will($this->returnValue($entity));
 
-        $this->paramsPlugin->expects($this->once())->method('fromQuery')->will($this->returnValue(['a' => 1]));
+        $this->paramsPlugin->expects($this->any())->method('fromQuery')->will($this->returnValue(['a' => 1]));
         $this->paramsPlugin->expects($this->once())->method('fromRoute')->with('page')
             ->will($this->returnValue(2));
 
