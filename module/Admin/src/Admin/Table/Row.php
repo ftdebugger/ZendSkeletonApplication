@@ -6,10 +6,11 @@
 namespace Admin\Table;
 
 
+use ArrayAccess;
 use ArrayIterator;
 use IteratorAggregate;
 
-class Row implements IteratorAggregate
+class Row implements IteratorAggregate, ArrayAccess
 {
 
     /**
@@ -53,4 +54,37 @@ class Row implements IteratorAggregate
         return new ArrayIterator($this->columns);
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetExists($offset)
+    {
+        return array_key_exists($offset, $this->columns);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetGet($offset)
+    {
+        return $this->columns[$offset];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetSet($offset, $value)
+    {
+        if ($this->offsetExists($offset)) {
+            $this->columns[$offset] = $value;
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetUnset($offset)
+    {
+        $this->columns[$offset] = "";
+    }
 }
