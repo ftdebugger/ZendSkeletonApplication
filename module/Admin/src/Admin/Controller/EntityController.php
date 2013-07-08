@@ -52,7 +52,8 @@ class EntityController extends AbstractActionController
             'entity' => $entity,
             'paginator' => $list,
             'table' => $table,
-            'filter' => $filter
+            'filter' => $filter,
+            'filter_open' => count($this->params()->fromQuery())
         );
     }
 
