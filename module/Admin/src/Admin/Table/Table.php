@@ -22,7 +22,7 @@ class Table implements IteratorAggregate, Countable
     /**
      * @var Row[]
      */
-    protected $rows;
+    protected $rows = [];
 
     /**
      * Set value of Head

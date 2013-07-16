@@ -60,4 +60,10 @@ class TableTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(['id', 'username'], $head->getFields());
     }
 
+    public function testEmptyTable()
+    {
+        $table = new Table();
+        $table->setHead(new Row(['id']));
+        $this->assertCount(0, iterator_to_array($table));
+    }
 }
