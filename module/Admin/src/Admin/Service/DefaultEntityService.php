@@ -18,6 +18,8 @@ use Zend\Form\Factory;
 use Zend\Form\Form;
 use Zend\Paginator\Paginator;
 use Zend\ServiceManager\ServiceManager;
+use Zend\Stdlib\Hydrator\ArraySerializable;
+use Zend\Stdlib\Hydrator\ClassMethods;
 
 class DefaultEntityService implements EntityServiceInterface
 {
@@ -117,6 +119,13 @@ class DefaultEntityService implements EntityServiceInterface
         $form = $builder->createForm($this->entity->getClassName());
         $form->add(new Button('submit', ['label' => 'save']));
         $form->get('submit')->setAttribute('type', 'submit');
+
+        if ($form->getHydrator() instanceof ArraySerializable) {
+            $reflection = new \ReflectionClass($this->entity->getClassName());
+            if (!$reflection->hasMethod('getArrayCopy')) {
+                $form->setHydrator(new ClassMethods());
+            }
+        }
 
         return $form;
     }
