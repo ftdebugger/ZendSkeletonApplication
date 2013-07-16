@@ -36,4 +36,35 @@ class RowTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(['id', 'username'], $row->getFields());
     }
 
+    public function testOffsetSet()
+    {
+        $row = new Row(['a']);
+        $row['a'] = 1;
+        $row['b'] = 2;
+        $this->assertEquals(['a' => 1], iterator_to_array($row));
+    }
+
+    public function testOffsetGet()
+    {
+        $row = new Row(['a']);
+        $row['a'] = 112;
+        $this->assertEquals(112, $row['a']);
+    }
+
+    public function testOffsetUnset()
+    {
+        $row = new Row(['a']);
+        $row['a'] = 112;
+        $this->assertEquals(112, $row['a']);
+        unset($row['a']);
+        $this->assertEquals("", $row['a']);
+    }
+
+    public function testOffsetIsset()
+    {
+        $row = new Row(['a']);
+        $this->assertTrue(isset($row['a']));
+        $this->assertFalse(isset($row['b']));
+    }
+
 }
