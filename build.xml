@@ -13,17 +13,35 @@
     </target>
 
     <target name="classmap" description="Generate classmap">
-        <exec command="./vendor/bin/classmap_generator.php --overwrite --library module/Admin"/>
-        <exec command="./vendor/bin/classmap_generator.php --overwrite --library module/Application"/>
-        <exec command="./vendor/bin/classmap_generator.php --overwrite --library module/User"/>
+        <classmap module="Admin"/>
+        <classmap module="User"/>
+        <classmap module="Application"/>
     </target>
 
+    <macrodef name="classmap">
+        <attribute name="module"/>
+        <sequential>
+            <exec executable="vendor/bin/classmap_generator.php">
+                <arg value="--overwrite"/>
+                <arg value="--library"/>
+                <arg value="module/@{module}"/>
+            </exec>
+        </sequential>
+    </macrodef>
+
     <target name="phpunit">
-        <exec executable="./vendor/bin/phpunit" failonerror="true" append="true">
-            <arg value="-c"/>
-            <arg file="module/Admin/test/phpunit.xml"/>
-        </exec>
+        <phpunit module="Admin"/>
     </target>
+
+    <macrodef name="phpunit">
+        <attribute name="module"/>
+        <sequential>
+            <exec executable="./vendor/bin/phpunit" failonerror="true" append="true">
+                <arg value="-c"/>
+                <arg file="module/@{module}/test/phpunit.xml"/>
+            </exec>
+        </sequential>
+    </macrodef>
 
     <target name="clean" description="just clean">
         <delete>
@@ -32,6 +50,21 @@
                 <include name="*.css"/>
             </fileset>
         </delete>
+    </target>
+
+    <target name="up" depends="classmap" description="Update all dependencies">
+        <exec executable="composer.phar">
+            <arg value="update"/>
+        </exec>
+        <exec executable="npm">
+            <arg value="install"/>
+        </exec>
+        <exec executable="vendor/bin/doctrine-module">
+            <arg value="orm:clear-cache:metadata"/>
+        </exec>
+        <exec executable="vendor/bin/doctrine-module">
+            <arg value="migrations:migrate"/>
+        </exec>
     </target>
 
     <target name="build" depends="classmap, assets"/>
