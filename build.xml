@@ -13,7 +13,6 @@
     </target>
 
     <target name="classmap" description="Generate classmap">
-        <classmap module="Admin"/>
         <classmap module="User"/>
         <classmap module="Application"/>
     </target>
@@ -30,7 +29,7 @@
     </macrodef>
 
     <target name="phpunit">
-        <phpunit module="Admin"/>
+        <!--<phpunit module="Module name"/>-->
     </target>
 
     <macrodef name="phpunit">

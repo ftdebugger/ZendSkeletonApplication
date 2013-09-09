@@ -13,10 +13,10 @@ return array(
         'ZfcUserDoctrineORM',
         'AsseticBundle',
         'BjyAuthorize',
+        'EnliteAdmin',
         //
         'Application',
         'User',
-        'Admin'
     ),
 
     // These are various options for the listeners attached to the ModuleManager
