@@ -36,6 +36,7 @@ return array(
     'zfctwig' => array(
         'environment_options' => array(
             'debug' => true,
+            'cache' => null
         ),
         'extensions' => array(
             'debug' => 'Twig_Extension_Debug'

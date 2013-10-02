@@ -3,16 +3,21 @@
 namespace Application;
 
 use DoctrineModule\Cache\ZendStorageCache;
+use Zend\Cache\Service\StorageCacheFactory;
 use Zend\Cache\Storage\Adapter\Memcached;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\ServiceManager\ServiceManager;
 
 class Module implements ConfigProviderInterface, AutoloaderProviderInterface, ServiceProviderInterface
 {
+    /**
+     * {@inheritdoc}
+     */
     public function onBootstrap(MvcEvent $e)
     {
         $eventManager = $e->getApplication()->getEventManager();
@@ -20,6 +25,9 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface, Se
         $moduleRouteListener->attach($eventManager);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getConfig()
     {
         return array_merge(
@@ -30,6 +38,9 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface, Se
         );
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getAutoloaderConfig()
     {
         return array(
@@ -42,23 +53,14 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface, Se
     }
 
     /**
-     * Expected to return \Zend\ServiceManager\Config object or array to
-     * seed such an object.
-     *
-     * @return array|\Zend\ServiceManager\Config
+     * {@inheritdoc}
      */
     public function getServiceConfig()
     {
         return array(
             'factories' => array(
                 'doctrine.cache.my_memcache' => function (ServiceManager $sm) {
-                    $cache = new ZendStorageCache($sm->get('cache'));
-                    $cache->setNamespace('projectNamespace');
-
-                    return $cache;
-                },
-                'cache' => function () {
-                    return new Memcached(array('servers' => array('localhost:11211'), 'ttl' => 3600));
+                    return new ZendStorageCache($sm->get('cache'));
                 },
             ),
         );
