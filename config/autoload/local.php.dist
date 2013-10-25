@@ -31,6 +31,8 @@ return array(
     ),
     'assetic_configuration' => array(
         'debug' => true,
+        'combine' => false,
+        'cacheEnabled' => false,
         'buildOnRequest' => true,
     ),
     'zfctwig' => array(
