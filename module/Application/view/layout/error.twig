@@ -1,0 +1,58 @@
+{{ docType() }}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    {% block title %}
+        {{ headTitle('Skeleton Application') }}
+    {% endblock %}
+
+    {% block meta %}
+        {% do headMeta('viewport', 'width=device-width, initial-scale=1.0') %}
+        {{ headMeta() }}
+    {% endblock %}
+
+    {% block link %}
+        {{ headLink() }}
+    {% endblock %}
+
+    {% block headscript %}
+        {{ headScript() }}
+    {% endblock %}
+</head>
+<body>
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ url('home') }}">Skeleton application</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            {{ navigation('navigation').menu().setPartial('partial/menu.twig')|raw }}
+            {% if zfcUserIdentity() %}
+                <ul class="nav navbar-nav navbar-right">
+                    <li><p class="navbar-text">{{ zfcUserIdentity().displayName }}</p></li>
+                    <li><a href="{{url('zfcuser/logout')}}">Logout</a></li>
+                </ul>
+            {% endif %}
+        </div><!--/.nav-collapse -->
+
+    </div>
+</div>
+    <div class="container">
+        <!-- content|raw is required for phtml fallback -->
+        {% block content %}{{ content|raw }}{% endblock content %}
+    </div> <!-- /container -->
+
+
+    {% block inlinescript %}
+        {{ inlineScript() }}
+    {% endblock %}
+
+    {% block inline %}{% endblock inline %}
+</body>
+</html>
