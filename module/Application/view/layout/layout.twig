@@ -21,21 +21,28 @@
     {% endblock %}
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-                <a class="brand" href="{{ url('home') }}">Skeleton Application</a>
-                <div class="nav-collapse collapse">
-                    {{ navigation('navigation').menu().setPartial('partial/menu.twig')|raw }}
-                </div><!--/.nav-collapse -->
-            </div>
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ url('home') }}">Skeleton application</a>
         </div>
+        <div class="navbar-collapse collapse">
+            {{ navigation('navigation').menu().setPartial('partial/menu.twig')|raw }}
+            {% if zfcUserIdentity() %}
+                <ul class="nav navbar-nav navbar-right">
+                    <li><p class="navbar-text">{{ zfcUserIdentity().displayName }}</p></li>
+                    <li><a href="{{url('zfcuser/logout')}}">Logout</a></li>
+                </ul>
+            {% endif %}
+        </div><!--/.nav-collapse -->
+
     </div>
+</div>
     <div class="container">
         <!-- content|raw is required for phtml fallback -->
         {% block content %}{{ content|raw }}{% endblock content %}

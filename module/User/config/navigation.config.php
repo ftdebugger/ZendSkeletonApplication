@@ -13,13 +13,6 @@ return array(
                 'route' => 'zfcuser/register',
                 'resource' => 'not_logged'
             ),
-
-            array(
-                'label' => 'logout',
-                'route' => 'zfcuser/logout',
-                'resource' => 'logged',
-                'order' => 1000
-            )
         ),
     )
 );

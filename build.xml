@@ -42,6 +42,12 @@
         </sequential>
     </macrodef>
 
+    <target name="bower">
+        <exec executable="node_modules/.bin/bower">
+            <arg value="install"/>
+        </exec>
+    </target>
+
     <target name="clean" description="just clean">
         <delete>
             <fileset dir="public/assets">
@@ -51,13 +57,17 @@
         </delete>
     </target>
 
-    <target name="up" depends="classmap" description="Update all dependencies">
+    <target name="up" description="Update all dependencies">
         <exec executable="composer.phar">
             <arg value="update"/>
         </exec>
         <exec executable="npm">
             <arg value="install"/>
         </exec>
+
+        <antcall target="bower"/>
+        <antcall target="classmap"/>
+
         <exec executable="vendor/bin/doctrine-module">
             <arg value="orm:clear-cache:metadata"/>
         </exec>

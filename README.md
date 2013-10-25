@@ -13,9 +13,9 @@ and use `composer` to install dependencies using the `create-project` command:
     curl -s https://getcomposer.org/installer | php --
     php composer.phar create-project -sdev ftdebugger/zend-skeleton-application PATH_TO_INSTALL
 
+Than copy `config/autoload/local.php.dist` to `config/autoload/local.php` and edit your DB settings.
+
     npm install
     ant build
 
-Than copy `config/autoload/local.php.dist` to `config/autoload/local.php` and edit your DB settings.
-
-    ./vendor/bin/doctrine-module orm:schema-tool:create
+Now your ZF application is ready

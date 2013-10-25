@@ -15,12 +15,6 @@ return array(
             ),
         ),
     ),
-    'service_manager' => array(
-        'abstract_factories' => array(
-            'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
-            'Zend\Log\LoggerAbstractServiceFactory',
-        ),
-    ),
     'controllers' => array(
         'invokables' => array(
             'application-index' => 'Application\Controller\IndexController'

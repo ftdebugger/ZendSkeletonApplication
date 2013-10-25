@@ -1,0 +1,14 @@
+{
+    "name": "ZF2SkeletonApplication",
+    "version": "1.0.0",
+    "homepage": "https://github.com/ftdebugger/ZendSkeletonApplication",
+    "authors": [
+        "Evgeny Shpilevsky <evgeny@shpilevsky.com>"
+    ],
+    "license": "MIT",
+    "private": true,
+    "dependencies": {
+        "jquery": "2.*",
+        "bootstrap": "3.*"
+    }
+}
