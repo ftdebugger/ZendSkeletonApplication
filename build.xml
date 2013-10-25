@@ -71,10 +71,10 @@
         <antcall target="bower"/>
         <antcall target="classmap"/>
 
-        <exec executable="vendor/bin/doctrine-module">
+        <exec executable="bin/doctrine-module">
             <arg value="orm:clear-cache:metadata"/>
         </exec>
-        <exec executable="vendor/bin/doctrine-module">
+        <exec executable="bin/doctrine-module">
             <arg value="migrations:migrate"/>
         </exec>
     </target>
