@@ -1,0 +1,11 @@
+
+<dl>
+    <dt><strong>File</strong></dt> <dd>{{ exception.file }}:{{ exception.line }}</dd>
+    <dt><strong>Message</strong></dt> <dd>{{ exception.message }}</dd>
+    <dt><strong>Stack trace</strong></dt> <dd><pre>{{ exception.getTraceAsString() }}</pre></dd>
+</dl>
+
+{% if exception.previous %}
+    <h2>Previous</h2>
+    {{ partial('error/exception.twig', {exception: exception.previous}) }}
+{% endif %}

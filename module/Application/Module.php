@@ -34,7 +34,9 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface, Se
             include __DIR__ . '/config/module.config.php',
             include __DIR__ . '/config/auth.config.php',
             include __DIR__ . '/config/navigation.config.php',
-            include __DIR__ . '/config/assetic.config.php'
+            include __DIR__ . '/config/assetic.config.php',
+            include __DIR__ . '/config/router.config.php',
+            include __DIR__ . '/config/service.config.php'
         );
     }
 
@@ -48,6 +50,9 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface, Se
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
                 ),
+            ),
+            'Zend\Loader\ClassMapAutoloader' => array(
+                __DIR__ . "/autoload_classmap.php"
             ),
         );
     }

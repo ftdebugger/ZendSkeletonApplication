@@ -7,6 +7,8 @@ namespace User\Provider;
 
 use BjyAuthorize\Provider\Identity\ProviderInterface;
 use User\Service\UserService;
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Zend\ServiceManager\ServiceLocatorAwareTrait;
 
 class Identity implements ProviderInterface
 {

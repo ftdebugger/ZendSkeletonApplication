@@ -9,5 +9,5 @@ before_script:
   - composer --dev install
 
 script:
-  - ant build
+  - ant up
   - ant phpunit

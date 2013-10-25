@@ -1,0 +1,42 @@
+{% extends "layout/error.twig" %}
+
+{% block content %}
+
+    <div class="section">
+        <div class="section__i">
+            <h2>Error occurred</h2>
+
+            {% if display_exceptions %}
+                <p>
+                    {% if reason == 'error-controller-cannot-dispatch' %}
+                        The requested controller was unable to dispatch the request.
+                    {% elseif reason == 'error-controller-not-found' %}
+                        The requested controller could not be mapped to an existing controller class.
+                    {% elseif reason == 'error-controller-invalid' %}
+                        The requested controller was not dispatchable.
+                    {% elseif reason == 'error-router-no-match' %}
+                        The requested URL could not be matched by routing.
+                    {% else %}
+                        We cannot determine at this time why a 404 was generated.
+                    {% endif %}
+                </p>
+
+                {% if controller %}
+                    <dl>
+                        <dt>Controller</dt>
+                        <dd>{{ controller }} ({{ controller_class }})</dd>
+                    </dl>
+                {% endif %}
+
+                {% if exception %}
+                    <h2>Additional information</h2>
+
+                    {{ partial('error/exception.twig', {exception: exception}) }}
+                {% endif %}
+            {% else %}
+                <p>This page not found. Try your search again from <a href="{{ url('home') }}">main page</a></p>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

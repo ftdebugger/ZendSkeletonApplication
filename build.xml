@@ -20,7 +20,7 @@
     <macrodef name="classmap">
         <attribute name="module"/>
         <sequential>
-            <exec executable="vendor/bin/classmap_generator.php">
+            <exec executable="bin/classmap_generator.php">
                 <arg value="--overwrite"/>
                 <arg value="--library"/>
                 <arg value="module/@{module}"/>
@@ -35,7 +35,7 @@
     <macrodef name="phpunit">
         <attribute name="module"/>
         <sequential>
-            <exec executable="./vendor/bin/phpunit" failonerror="true" append="true">
+            <exec executable="bin/phpunit" failonerror="true" append="true">
                 <arg value="-c"/>
                 <arg file="module/@{module}/test/phpunit.xml"/>
             </exec>
@@ -50,6 +50,9 @@
 
     <target name="clean" description="just clean">
         <delete>
+            <fileset dir="data/cache">
+                <include name="**"/>
+            </fileset>
             <fileset dir="public/assets">
                 <include name="*.js"/>
                 <include name="*.css"/>

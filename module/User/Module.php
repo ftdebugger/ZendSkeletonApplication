@@ -1,32 +1,31 @@
 <?php
 
+/**
+ * @author Evgeny Shpilevsky <evgeny@shpilevsky.com>
+ */
+
 namespace User;
 
 use BjyAuthorize\Service\Authorize;
 use User\Controller\Plugin\Authentication;
-use User\Provider\Identity;
-use User\Service\UserService;
 use Zend\EventManager\EventInterface;
+use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\BootstrapListenerInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ControllerPluginProviderInterface;
 use Zend\Mvc\ApplicationInterface;
 use Zend\Mvc\Controller\PluginManager;
 use Zend\Mvc\MvcEvent;
-use Zend\ServiceManager\ServiceManager;
 use Zend\View\Helper\Navigation\AbstractHelper;
 
-/**
- * @author Evgeny Shpilevsky <evgeny@shpilevsky.com>
- */
-
-class Module implements ConfigProviderInterface, BootstrapListenerInterface, ControllerPluginProviderInterface
+class Module implements
+    ConfigProviderInterface,
+    BootstrapListenerInterface,
+    ControllerPluginProviderInterface,
+    AutoloaderProviderInterface
 {
     /**
-     * Listen to the bootstrap event
-     *
-     * @param  EventInterface $e
-     * @return array
+     * {@inheritdoc}
      */
     public function onBootstrap(EventInterface $e)
     {
@@ -47,19 +46,20 @@ class Module implements ConfigProviderInterface, BootstrapListenerInterface, Con
     }
 
     /**
-     * @return array|mixed|\Traversable
+     * {@inheritdoc}
      */
     public function getConfig()
     {
         return array_merge(
             include __DIR__ . '/config/module.config.php',
             include __DIR__ . '/config/auth.config.php',
+            include __DIR__ . '/config/service.config.php',
             include __DIR__ . "/config/navigation.config.php"
         );
     }
 
     /**
-     * @return array
+     * {@inheritdoc}
      */
     public function getAutoloaderConfig()
     {
@@ -76,31 +76,7 @@ class Module implements ConfigProviderInterface, BootstrapListenerInterface, Con
     }
 
     /**
-     * @return array
-     */
-    public function getServiceConfig()
-    {
-        return array(
-            'aliases' => array(
-                'zfcuser_doctrine_em' => 'doctrine.entitymanager.orm_default',
-
-            ),
-            'factories' => array(
-                'User\Provider\Identity' => function (ServiceManager $sm) {
-                    return new Identity($sm->get('UserService'));
-                },
-                'UserService' => function (ServiceManager $sm) {
-                    return new UserService($sm);
-                },
-            ),
-        );
-    }
-
-    /**
-     * Expected to return \Zend\ServiceManager\Config object or array to
-     * seed such an object.
-     *
-     * @return array|\Zend\ServiceManager\Config
+     * {@inheritdoc}
      */
     public function getControllerPluginConfig()
     {
