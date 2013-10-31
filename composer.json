@@ -38,6 +38,9 @@
         "phpunit/phpunit":                      "~3.7",
         "enlitepro/zf2-scaffold":               "dev-master"
     },
+    "suggest": {
+        "enlitepro/enlite-behat-extension":     "*"
+    },
     "config": {
         "bin-dir": "bin"
     }

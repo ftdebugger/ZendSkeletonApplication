@@ -1,0 +1,109 @@
+---
+vagrantfile-local:
+    vm:
+        box: precise64
+        box_url: 'http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-12042-x64-vbox4210.box'
+        hostname: null
+        network:
+            private_network: 192.168.56.101
+            forwarded_port:
+                m47tzGXVzTXz:
+                    host: '8888'
+                    guest: '80'
+        provider:
+            virtualbox:
+                modifyvm:
+                    name: ZF2Application
+                    natdnshostresolver1: on
+                    memory: '512'
+                setextradata:
+                    VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root: 1
+        provision:
+            puppet:
+                manifests_path: puppet/manifests
+                options:
+                    - --verbose
+                    - '--hiera_config /vagrant/hiera.yaml'
+                    - '--parser future'
+        synced_folder:
+            Eo8m7JZhyLBj:
+                id: vagrant-root
+                source: ../
+                target: /var/www/zf2application
+                nfs: 'false'
+        usable_port_range: 2200..2250
+    ssh:
+        host: null
+        port: null
+        private_key_path: null
+        username: vagrant
+        guest_port: null
+        keep_alive: true
+        forward_agent: false
+        forward_x11: false
+        shell: 'bash -l'
+    vagrant:
+        host: ':detect'
+server:
+    packages:
+        - build-essential
+        - curl
+        - git-core
+        - ant
+        - nodejs
+        - mc
+        - memcached
+    dot_files:
+        -
+            bash_aliases: null
+    _prevent_empty: ''
+nginx:
+    vhosts:
+        Lpe0hciDYKMY:
+            server_name: zf2application
+            server_aliases:
+                - localhost
+                - zf2application.dev
+            www_root: /var/www/zf2application/public
+            listen_port: '80'
+            index_files:
+                - index.php
+php:
+    version: '54'
+    composer: '1'
+    modules:
+        php:
+            - cli
+            - curl
+            - intl
+            - mcrypt
+            - memcached
+        pear: {  }
+        pecl:
+            - pecl_http
+    ini:
+        display_errors: On
+        error_reporting: '-1'
+    timezone: Europe/Minsk
+xdebug:
+    install: '1'
+    settings:
+        xdebug.default_enable: '1'
+        xdebug.remote_autostart: '0'
+        xdebug.remote_connect_back: '1'
+        xdebug.remote_enable: '1'
+        xdebug.remote_handler: dbgp
+        xdebug.remote_port: '9000'
+mysql:
+    root_password: '123'
+    phpmyadmin: 0
+    databases:
+        KAeQBifb6RBS:
+            grant:
+                - ALL
+            name: zf2app
+            host: localhost
+            user: zf2app_user
+            password: zf2app
+            sql_file: ''
+

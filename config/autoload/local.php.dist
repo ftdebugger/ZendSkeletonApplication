@@ -22,9 +22,9 @@ return array(
                 'params' => array(
                     'host' => 'localhost',
                     'port' => '3306',
-                    'user' => 'root',
-                    'password' => '',
-                    'dbname' => '',
+                    'user' => 'zf2app_user',
+                    'password' => 'zf2app',
+                    'dbname' => 'zf2app',
                 ),
             )
         ),
