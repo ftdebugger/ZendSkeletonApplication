@@ -5,7 +5,6 @@
 
 namespace Application\Cache\Storage\Plugin;
 
-
 use Zend\Cache\Storage\Event;
 use Zend\Cache\Storage\Plugin\AbstractPlugin;
 use Zend\EventManager\EventManagerInterface;

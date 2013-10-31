@@ -42,8 +42,8 @@ trait UserServiceTrait
                 }
             }
         }
+
         return $this->userService;
     }
-
 
 }

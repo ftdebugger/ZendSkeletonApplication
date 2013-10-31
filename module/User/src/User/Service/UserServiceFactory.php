@@ -13,13 +13,12 @@ class UserServiceFactory implements FactoryInterface
     /**
      * Create service
      *
-     * @param ServiceLocatorInterface|ServiceManager $serviceLocator
+     * @param  ServiceLocatorInterface|ServiceManager $serviceLocator
      * @return UserService
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         return new UserService($serviceLocator);
     }
-
 
 }

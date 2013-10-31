@@ -3,14 +3,11 @@
 namespace Application;
 
 use DoctrineModule\Cache\ZendStorageCache;
-use Zend\Cache\Service\StorageCacheFactory;
-use Zend\Cache\Storage\Adapter\Memcached;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
-use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\ServiceManager\ServiceManager;
 
 class Module implements ConfigProviderInterface, AutoloaderProviderInterface, ServiceProviderInterface
@@ -65,8 +62,8 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface, Se
         return array(
             'factories' => array(
                 'doctrine.cache.my_memcache' => function (ServiceManager $sm) {
-                    return new ZendStorageCache($sm->get('cache'));
-                },
+                        return new ZendStorageCache($sm->get('cache'));
+                    },
             ),
         );
     }

@@ -36,23 +36,25 @@
             {% if zfcUserIdentity() %}
                 <ul class="nav navbar-nav navbar-right">
                     <li><p class="navbar-text">{{ zfcUserIdentity().displayName }}</p></li>
-                    <li><a href="{{url('zfcuser/logout')}}">Logout</a></li>
+                    <li><a href="{{ url('zfcuser/logout') }}">Logout</a></li>
                 </ul>
             {% endif %}
-        </div><!--/.nav-collapse -->
+        </div>
+        <!--/.nav-collapse -->
 
     </div>
 </div>
-    <div class="container">
-        <!-- content|raw is required for phtml fallback -->
-        {% block content %}{{ content|raw }}{% endblock content %}
-    </div> <!-- /container -->
+<div class="container">
+    <!-- content|raw is required for phtml fallback -->
+    {% block content %}{{ content|raw }}{% endblock content %}
+</div>
+<!-- /container -->
 
 
-    {% block inlinescript %}
-        {{ inlineScript() }}
-    {% endblock %}
+{% block inlinescript %}
+    {{ inlineScript() }}
+{% endblock %}
 
-    {% block inline %}{% endblock inline %}
+{% block inline %}{% endblock inline %}
 </body>
 </html>

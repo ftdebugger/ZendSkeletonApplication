@@ -83,8 +83,8 @@ class Module implements
         return array(
             'factories' => array(
                 'authentication' => function (PluginManager $sm) {
-                    return new Authentication($sm->getServiceLocator());
-                }
+                        return new Authentication($sm->getServiceLocator());
+                    }
             )
         );
     }

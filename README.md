@@ -31,12 +31,6 @@ sudo apt-get install vagrant virtualbox
 
 If you want, you can install newer version of VirtualBox from [official site](https://www.virtualbox.org/wiki/Linux_Downloads)
 
-Next step, install dependencies from git submodules (you must have initiated git repository for this step)
-
-```
-git submodule update
-```
-
 Now we are ready for a little magic
 
 ```
@@ -50,4 +44,4 @@ cd /var/www/zf2application
 ant up
 ```
 
-Open you browser [http://zf2application.dev/](http://zf2application.dev/)
+Open your browser [http://zf2application.dev/](http://zf2application.dev/)

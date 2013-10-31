@@ -2,8 +2,7 @@
 
 return array(
     'service_manager' => array(
-        'invokables' => array(
-        ),
+        'invokables' => array(),
         'factories' => array(
             'UserService' => 'User\Service\UserServiceFactory',
             'User\Provider\Identity' => 'User\Provider\IdentityFactory'
