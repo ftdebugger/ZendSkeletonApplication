@@ -50,12 +50,11 @@ class Module implements
      */
     public function getConfig()
     {
-        return array_merge(
-            include __DIR__ . '/config/module.config.php',
-            include __DIR__ . '/config/auth.config.php',
-            include __DIR__ . '/config/service.config.php',
-            include __DIR__ . "/config/navigation.config.php"
-        );
+        $config = [];
+        foreach (glob(__DIR__ . '/config/*.config.php') as $file) {
+            $config = array_merge($config, include $file);
+        }
+        return $config;
     }
 
     /**
@@ -83,8 +82,8 @@ class Module implements
         return array(
             'factories' => array(
                 'authentication' => function (PluginManager $sm) {
-                        return new Authentication($sm->getServiceLocator());
-                    }
+                    return new Authentication($sm->getServiceLocator());
+                }
             )
         );
     }

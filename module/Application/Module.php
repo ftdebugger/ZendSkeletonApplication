@@ -27,14 +27,11 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface, Se
      */
     public function getConfig()
     {
-        return array_merge(
-            include __DIR__ . '/config/module.config.php',
-            include __DIR__ . '/config/auth.config.php',
-            include __DIR__ . '/config/navigation.config.php',
-            include __DIR__ . '/config/assetic.config.php',
-            include __DIR__ . '/config/router.config.php',
-            include __DIR__ . '/config/service.config.php'
-        );
+        $config = [];
+        foreach (glob(__DIR__ . '/config/*.config.php') as $file) {
+            $config = array_merge($config, include $file);
+        }
+        return $config;
     }
 
     /**
@@ -62,8 +59,8 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface, Se
         return array(
             'factories' => array(
                 'doctrine.cache.my_memcache' => function (ServiceManager $sm) {
-                        return new ZendStorageCache($sm->get('cache'));
-                    },
+                    return new ZendStorageCache($sm->get('cache'));
+                },
             ),
         );
     }

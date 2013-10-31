@@ -10,10 +10,10 @@
     {% endif %}
 
     <div class="row">
-        <div class="span2">
+        <div class="col-md-2">
             {{ gravatar(zfcUserIdentity().getEmail()) }}
         </div>
-        <div class="span10">
+        <div class="col-md-10">
             <ul>
                 <li><a href="{{ url('zfcuser/changepassword') }}">Сменить пароль</a></li>
                 <li><a href="{{ url('zfcuser/changeemail') }}">Сменить e-mail</a></li>
