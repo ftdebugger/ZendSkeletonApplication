@@ -1,4 +1,4 @@
-ZF2 + Doctrine + Twig + Assetic [![Build Status](https://travis-ci.org/ftdebugger/ZendSkeletonApplication.png?branch=master)](https://travis-ci.org/ftdebugger/ZendSkeletonApplication)
+ZF2 + Doctrine + Twig + Assetic [![Build Status](https://travis-ci.org/ftdebugger/ZendSkeletonApplication.png?branch=master)](https://travis-ci.org/ftdebugger/ZendSkeletonApplication)[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/ftdebugger/ZendSkeletonApplication/badges/quality-score.png?s=8c7b3b198d51c911ac1a36bc76b5946730703ac6)](https://scrutinizer-ci.com/g/ftdebugger/ZendSkeletonApplication/)
 ===============================
 
 Based on [ZendSkeletonApplication](https://github.com/zendframework/ZendSkeletonApplication)
