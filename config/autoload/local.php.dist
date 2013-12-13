@@ -12,9 +12,6 @@
  */
 
 return array(
-    'config_cache_enabled' => false,
-    'module_map_cache_enabled' => false,
-    'check_dependencies' => true,
     'doctrine' => array(
         'connection' => array(
             'orm_default' => array(
