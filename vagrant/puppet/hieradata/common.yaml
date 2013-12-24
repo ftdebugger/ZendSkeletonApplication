@@ -7,7 +7,7 @@ vagrantfile-local:
         network:
             private_network: 192.168.56.101
             forwarded_port:
-                m47tzGXVzTXz:
+                JCa0PXJgA0JW:
                     host: '8888'
                     guest: '80'
         provider:
@@ -26,7 +26,7 @@ vagrantfile-local:
                     - '--hiera_config /vagrant/hiera.yaml'
                     - '--parser future'
         synced_folder:
-            Eo8m7JZhyLBj:
+            qsMaffHYmMIX:
                 id: vagrant-root
                 source: ../
                 target: /var/www/zf2application
@@ -59,7 +59,7 @@ server:
     _prevent_empty: ''
 nginx:
     vhosts:
-        Lpe0hciDYKMY:
+        oPtKKiIjSHnA:
             server_name: zf2application
             server_aliases:
                 - localhost
@@ -98,7 +98,7 @@ mysql:
     root_password: '123'
     phpmyadmin: 0
     databases:
-        KAeQBifb6RBS:
+        T5fjezxYTX9E:
             grant:
                 - ALL
             name: zf2app

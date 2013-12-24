@@ -43,7 +43,7 @@
     </macrodef>
 
     <target name="bower">
-        <exec executable="node_modules/.bin/bower">
+        <exec executable="node_modules/.bin/bower" failonerror="true">
             <arg value="install"/>
         </exec>
     </target>
@@ -61,10 +61,10 @@
     </target>
 
     <target name="up" description="Update all dependencies">
-        <exec executable="composer.phar">
+        <exec executable="composer.phar" failonerror="true">
             <arg value="update"/>
         </exec>
-        <exec executable="npm">
+        <exec executable="npm" failonerror="true">
             <arg value="install"/>
         </exec>
 

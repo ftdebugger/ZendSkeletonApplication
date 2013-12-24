@@ -8,24 +8,28 @@ if $server_values == undef {
 # failing for invalid certificates
 include '::ntp'
 
-group { 'puppet': ensure => present }
 Exec { path => [ '/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/' ] }
 File { owner => 0, group => 0, mode => 0644 }
 
+group { 'puppet': ensure => present }
+group { 'www-data': ensure => present }
+
 user { $::ssh_username:
-    shell  => '/bin/bash',
-    home   => "/home/${::ssh_username}",
-    ensure => present
+  shell  => '/bin/bash',
+  home   => "/home/${::ssh_username}",
+  ensure => present
+}
+
+user { ['apache', 'nginx', 'httpd', 'www-data']:
+  shell  => '/bin/bash',
+  ensure => present,
+  groups => 'www-data',
+  require => Group['www-data']
 }
 
 file { "/home/${::ssh_username}":
     ensure => directory,
     owner  => $::ssh_username,
-}
-
-# in case php extension was not loaded
-if $php_values == undef {
-  $php_values = hiera('php', false)
 }
 
 # copy dot files to ssh user's home directory
@@ -81,6 +85,10 @@ case $::osfamily {
 
     ensure_packages( ['augeas'] )
   }
+}
+
+if $php_values == undef {
+  $php_values = hiera('php', false)
 }
 
 case $::operatingsystem {
@@ -151,7 +159,6 @@ define add_dotdeb ($release){
   }
 }
 
-
 ## Begin Nginx manifest
 
 if $nginx_values == undef {
@@ -167,6 +174,27 @@ if $::osfamily == 'debian' and $lsbdistcodename in ['lucid'] and is_hash($php_va
   apt::ppa { 'ppa:l-mierzwa/lucid-php5':
     options => '',
     require => Apt::Key['67E15F46']
+  }
+}
+
+include puphpet::params
+
+$webroot_location = $puphpet::params::nginx_webroot_location
+
+exec { "exec mkdir -p ${webroot_location}":
+  command => "mkdir -p ${webroot_location}",
+  onlyif  => "test -d ${webroot_location}",
+}
+
+if ! defined(File[$webroot_location]) {
+  file { $webroot_location:
+    ensure  => directory,
+    group   => 'www-data',
+    mode    => 0775,
+    require => [
+      Exec["exec mkdir -p ${webroot_location}"],
+      Group['www-data']
+    ]
   }
 }
 
@@ -291,13 +319,21 @@ if $php_fpm_ini == undef {
 }
 
 if is_hash($apache_values) {
+  include apache::params
+
   $php_webserver_service = 'httpd'
+  $php_webserver_user    = $apache::params::user
+  $php_webserver_restart = true
 
   class { 'php':
     service => $php_webserver_service
   }
 } elsif is_hash($nginx_values) {
+  include nginx::params
+
   $php_webserver_service = "${php_prefix}fpm"
+  $php_webserver_user    = $nginx::params::nx_daemon_user
+  $php_webserver_restart = true
 
   class { 'php':
     package             => $php_webserver_service,
@@ -313,6 +349,15 @@ if is_hash($apache_values) {
     hasstatus  => true,
     require    => Package[$php_webserver_service]
   }
+} else {
+  $php_webserver_service = undef
+  $php_webserver_restart = false
+
+  class { 'php':
+    package             => "${php_prefix}cli",
+    service             => $php_webserver_service,
+    service_autorestart => false,
+  }
 }
 
 class { 'php::devel': }
@@ -327,12 +372,25 @@ if count($php_values['modules']['pecl']) > 0 {
   php_pecl_mod { $php_values['modules']['pecl']:; }
 }
 if count($php_values['ini']) > 0 {
-  $php_values['ini'].each { |$key, $value|
+  each( $php_values['ini'] ) |$key, $value| {
     puphpet::ini { $key:
       entry       => "CUSTOM/${key}",
       value       => $value,
       php_version => $php_values['version'],
       webserver   => $php_webserver_service
+    }
+  }
+
+  if $php_values['ini']['session.save_path'] != undef {
+    exec {"mkdir -p ${php_values['ini']['session.save_path']}":
+      onlyif  => "test ! -d ${php_values['ini']['session.save_path']}",
+    }
+
+    file { $php_values['ini']['session.save_path']:
+      ensure  => directory,
+      group   => 'www-data',
+      mode    => 0775,
+      require => Exec["mkdir -p ${php_values['ini']['session.save_path']}"]
     }
   }
 }
@@ -345,13 +403,21 @@ puphpet::ini { $key:
 }
 
 define php_mod {
-  php::module { $name: }
+  php::module { $name:
+    service_autorestart => $php_webserver_restart,
+  }
 }
 define php_pear_mod {
-  php::pear::module { $name: use_package => false }
+  php::pear::module { $name:
+    use_package         => false,
+    service_autorestart => $php_webserver_restart,
+  }
 }
 define php_pecl_mod {
-  php::pecl::module { $name: use_package => false }
+  php::pecl::module { $name:
+    use_package         => false,
+    service_autorestart => $php_webserver_restart,
+  }
 }
 exec { "change_fpm_user":
     command => "sed -i 's/www-data/vagrant/g' /etc/php5/fpm/pool.d/www.conf",
@@ -373,6 +439,8 @@ if $php_values['composer'] == 1 {
   }
 }
 
+## Begin Xdebug manifest
+
 if $xdebug_values == undef {
   $xdebug_values = hiera('xdebug', false)
 }
@@ -391,7 +459,7 @@ if $xdebug_values['install'] != undef and $xdebug_values['install'] == 1 {
   }
 
   if is_hash($xdebug_values['settings']) and count($xdebug_values['settings']) > 0 {
-    $xdebug_values['settings'].each { |$key, $value|
+    each( $xdebug_values['settings'] ) |$key, $value| {
       puphpet::ini { $key:
         entry       => "XDEBUG/${key}",
         value       => $value,
@@ -412,6 +480,20 @@ if $php_values == undef {
   $php_values = hiera('php', false)
 }
 
+if $apache_values == undef {
+  $apache_values = hiera('apache', false)
+}
+
+if $nginx_values == undef {
+  $nginx_values = hiera('nginx', false)
+}
+
+if is_hash($apache_values) or is_hash($nginx_values) {
+  $mysql_webserver_restart = true
+} else {
+  $mysql_webserver_restart = false
+}
+
 if $mysql_values['root_password'] {
   class { 'mysql::server':
     root_password => $mysql_values['root_password'],
@@ -423,9 +505,13 @@ if $mysql_values['root_password'] {
 
   if is_hash($php_values) {
     if $::osfamily == 'redhat' and $php_values['version'] == '53' and ! defined(Php::Module['mysql']) {
-      php::module { 'mysql': }
+      php::module { 'mysql':
+        service_autorestart => $mysql_webserver_restart,
+      }
     } elsif ! defined(Php::Module['mysqlnd']) {
-      php::module { 'mysqlnd': }
+      php::module { 'mysqlnd':
+        service_autorestart => $mysql_webserver_restart,
+      }
     }
   }
 }
@@ -447,6 +533,70 @@ define mysql_db (
     host     => $host,
     grant    => $grant,
     sql      => $sql_file,
+  }
+}
+
+if $mysql_values['phpmyadmin'] == 1 and is_hash($php_values) {
+  if $::osfamily == 'debian' {
+    if $::operatingsystem == 'ubuntu' {
+      apt::key { '80E7349A06ED541C': }
+      apt::ppa { 'ppa:nijel/phpmyadmin': require => Apt::Key['80E7349A06ED541C'] }
+    }
+
+    $phpMyAdmin_package = 'phpmyadmin'
+    $phpMyAdmin_folder = 'phpmyadmin'
+  } elsif $::osfamily == 'redhat' {
+    $phpMyAdmin_package = 'phpMyAdmin.noarch'
+    $phpMyAdmin_folder = 'phpMyAdmin'
+  }
+
+  if ! defined(Package[$phpMyAdmin_package]) {
+    package { $phpMyAdmin_package:
+      require => Class['mysql::server']
+    }
+  }
+
+  include puphpet::params
+
+  if is_hash($apache_values) {
+    $mysql_webroot_location = $puphpet::params::apache_webroot_location
+  } elsif is_hash($nginx_values) {
+    $mysql_webroot_location = $puphpet::params::nginx_webroot_location
+
+    mysql_nginx_default_conf { 'override_default_conf':
+      webroot => $mysql_webroot_location
+    }
+  }
+
+  file { "${mysql_webroot_location}/phpmyadmin":
+    target  => "/usr/share/${phpMyAdmin_folder}",
+    ensure  => link,
+    replace => 'no',
+    require => [
+      Package[$phpMyAdmin_package],
+      File[$mysql_webroot_location]
+    ]
+  }
+}
+
+define mysql_nginx_default_conf (
+  $webroot
+) {
+  if $php5_fpm_sock == undef {
+    $php5_fpm_sock = '/var/run/php5-fpm.sock'
+  }
+
+  if $fastcgi_pass == undef {
+    $fastcgi_pass = $php_values['version'] ? {
+      undef   => null,
+      '53'    => '127.0.0.1:9000',
+      default => "unix:${php5_fpm_sock}"
+    }
+  }
+
+  class { 'puphpet::nginx':
+    fastcgi_pass => $fastcgi_pass,
+    notify       => Class['nginx::service'],
   }
 }
 

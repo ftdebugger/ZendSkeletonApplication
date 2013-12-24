@@ -18,6 +18,8 @@
     ],
     "require": {
         "php":                                  ">=5.4",
+        "ext-intl":                             ">=1.0.0",
+        "ext-memcached":                        ">=1.0.0",
 
         "zendframework/zendframework":          "~2.2.4",
         "doctrine/doctrine-orm-module":         "0.8.*@beta",
